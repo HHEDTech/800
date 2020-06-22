@@ -1,0 +1,24 @@
+DROP TABLE users;
+DROP TABLE scores;
+DROP TABLE sessions;
+
+CREATE TABLE users
+(
+  user_id SERIAL PRIMARY KEY,
+  username varchar(16) UNIQUE,
+  password varchar(128)
+);
+
+CREATE TABLE scores
+(
+  score_id SERIAL PRIMARY KEY,
+  username varchar(16),
+  score INT
+);
+
+CREATE TABLE sessions
+(
+  session_id SERIAL PRIMARY KEY,
+  username varchar(16) NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT Now()
+);
