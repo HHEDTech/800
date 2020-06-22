@@ -23,6 +23,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "mini-css-extract-plugin": "^0.9.0",
     "path": "^0.12.7",
     "pg": "^8.2.1",
     "react": "^16.13.1",

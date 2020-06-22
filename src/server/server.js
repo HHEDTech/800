@@ -1,10 +1,13 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+<<<<<<< HEAD
 
 const userController = require('./controllers/userController');
 const scoreController = require('./controllers/scoreController');
 const sessionController = require('./controllers/sessionController');
+=======
+>>>>>>> e299f949993e4423c460c8217fab41cc14d7b44c
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +15,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+// console.log(path.join(__dirname, '../../index.html'));
+if(process.env.NODE_ENV === 'production') {
+app.use('/build', express.static(path.join(__dirname, '../../build')));
 
+<<<<<<< HEAD
 app.use(express.static(path.resolve(__dirname, '../assets')));
 
 app.post(
@@ -79,4 +86,10 @@ app.use((err, req, res, next) => {
 //Start our server
 app.listen(PORT, () => {
   `APP listening on port: ${PORT}`;
+=======
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../index.html'));
+>>>>>>> e299f949993e4423c460c8217fab41cc14d7b44c
 });
+}
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
