@@ -9,13 +9,10 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    historyApiFallback: true,
     publicPath: '/build/',
     proxy: {
-      '/api/**': 'http://localhost:3000/',
-    },
-    port: 8080,
-    hot: true,
+      '/api': 'http://localhost:3000'
+    }
   },
   mode: process.env.NODE_ENV,
   plugins: [
