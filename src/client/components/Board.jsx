@@ -11,7 +11,7 @@ const Board = () => {
   });
   console.log('boardArr -> ', boardArr);
   const boxes = boardArr.map((box, idx) => (
-    <Box key={`box-${idx}`} number={box} />
+    <Box key={`box-${idx}`} number={box.number} />
   ));
 
   return <div className="board">{boxes}</div>;
