@@ -15,7 +15,6 @@ app.use(cookieParser());
 // console.log(path.join(__dirname, '../../index.html'));
 
 app.use('/build', express.static(path.join(__dirname, '../../build')));
-
 app.use(express.static(path.resolve(__dirname, '../assets')));
 
 app.post(
@@ -27,7 +26,6 @@ app.post(
     return res.status(200).redirect('/');
   }
 );
-
 app.post(
   '/login',
   userController.verifyUser,
@@ -36,7 +34,6 @@ app.post(
     return res.status(200).redirect('/');
   }
 );
-
 app.post(
   '/scores',
   sessionController.verifySession,
@@ -46,7 +43,10 @@ app.post(
   }
 );
 app.get('/scores', scoreController.getHighScores, (req, res) => {
-  return res.status(200).json({ highscores: res.locals.highScores });
+  return res.status(200).json({ userScores: res.locals.userScores });
+});
+app.get('/leaderboard', scoreController.getLeaderboard, (req, res) => {
+  return res.status(200).json({ leaderboard: res.locals.leaderboard });
 });
 
 //handle requests for static files

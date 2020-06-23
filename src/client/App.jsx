@@ -1,83 +1,52 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { useDispatch } from 'react-redux';
+import * as types from '../actions/actionTypes';
 
-class Box extends Component {
+const [press, setPressed] = setState(false);
 
-  constructor() {
-    super();
+const keys = {
+  '37': 'left',
+  '38': 'up',
+  '39': 'right',
+  '40': 'down',
+};
 
-  }
+const keyDownHandle = (e) => {
+  if(e.key === 37 || e.key === 65) 
+  if(e.key === 38 || e.key === 87)
+  if(e.key === 39 || e.key === 68)
+  if(e.key === 40 || e.key === 83)
+} 
 
-  render() {
-    return (
-      <div id="box" >
-        {this.props.text}
-      </div>
-    );
-  }
+useEffect(() => {
+  const onKeyDown = ({key}) => {
+    if ()
+  };
+}, []);
 
-}
+const App = () => {
+  return (
+    <div onKeyDown={keyDownHandle}>
+      <h1>800 HEX CHALLENGE OF DEATH</h1>
+      <Board />
+    </div>
+  );
+};
 
 class Row extends Component {
-
   constructor() {
     super();
   }
-
 
   render() {
     const boxes = [];
-    for(let i = 0; i < 4; i++){
-      boxes.push(<Box key={'Box' + i} text={this.props.state[i + 4*this.props.row]}/>)
+    for (let i = 0; i < 4; i++) {
+      boxes.push(
+        <Box key={'Box' + i} text={this.props.state[i + 4 * this.props.row]} />
+      );
     }
-    return (
-      <div className="row">
-        {boxes}
-      </div>
-    );
-  }
-
-}
-
-class Board extends Component {
-
-  constructor() {
-    super();
-    let a = Math.floor(Math.random()*16);
-    let b = a;
-    while(b == a) {
-        b = Math.floor(Math.random()*16);
-    }
-    let aValue = 2;
-    let bValue = 2 * Math.floor(Math.random() * 2) + 2;
-    let arr = ' '.repeat(16).split('');
-    arr[a] = aValue;
-    arr[b] = bValue;
-    this.state = {...arr};
-    this.over = false;
-  }
-
-  render() {
-    const rows = [];
-    for(let i = 0; i < 4; i++){
-      rows.push(<Row key={'Row' + i} row={i} state={this.state}/>)
-    }
-    return (
-      <div>
-        {rows}
-      </div>
-    );
-  }
-
-}
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <h1>800 HEX CHALLENGE OF DEATH</h1>
-        <Board />
-      </div>
-    );
+    return <div className="row">{boxes}</div>;
   }
 }
 

@@ -15,7 +15,7 @@ scoreController.addScore = (req, res, next) => {
   });
 };
 
-scoreController.getHighScores = (req, res, next) => {
+scoreController.getUserScores = (req, res, next) => {
   const { username } = req.body;
   const query = `SELECT * FROM scores WHERE username = ${username}`;
   db.query(query, (err, data) => {
@@ -24,8 +24,25 @@ scoreController.getHighScores = (req, res, next) => {
         log: 'Error finding high scores in getHighScores',
         message: { error: `Error from database: ${err}` },
       });
-    res.localStorage.highScores = data.rows[0];
+
+    res.localStorage.userScores = data.rows[0];
     return next();
   });
 };
+
+scoreController.getLeaderboard = (req, res, next) => {
+  const query = `SELECT * FROM scores`;
+  db.query(query, (err, data) => {
+    if (err)
+      return next({
+        log: 'Error finding high scores in getLeaderboard',
+        message: { error: `Error from database: ${err}` },
+      });
+    const scores = data.rows[0];
+    scores.sort((a, b) => b - a);
+    res.localStorage.leaderboard = scores;
+    return next();
+  });
+};
+
 module.exports = scoreController;
