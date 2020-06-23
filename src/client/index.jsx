@@ -1,11 +1,24 @@
+/**
+ * ************************************
+ *
+ * @module  index.js
+ * @author  HHEDTech
+ * @date    6/23/2020
+ * @description entry point for application.  Hangs React app off of #roots in index.html
+ *
+ * ************************************
+ */
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App.jsx';
+import { Provider } from 'react-redux';
 
-// uncomment so that webpack can bundle styles
+import store from './store';
+import App from './App.jsx';
 import styles from './styles.scss';
 
 render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
