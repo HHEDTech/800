@@ -1,24 +1,23 @@
 body {
-    margin: 0;
-  }
-  
-  .container {
-    padding: 0 2.5%;
-  }
-  .row {
-      display: grid;
-      width: 408px;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 0;
+}
 
-  }
-  #box {
-    height: 100px;
-    width: 100px;
-    border: 1px solid black;
-    font-size: 60px;
-    text-align: center;
-    line-height: 100px;
-    // vertical-align: text-bottom;
-    // display: inline-block
-  }
-  
+.container {
+  padding: 0 2.5%;
+}
+.board {
+  display: grid;
+  width: 408px;
+  height: 408px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+#box {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  font-size: 60px;
+  text-align: center;
+  line-height: 100px;
+  // vertical-align: text-bottom;
+  // display: inline-block
+}

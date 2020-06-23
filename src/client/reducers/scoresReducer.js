@@ -7,6 +7,8 @@ const scoresReducer = (state = initialState, action) => {
     case 'UPDATE_SCORE':
     case 'RESET_SCORE':
   }
+
+  return state;
 };
 
 export default scoresReducer;

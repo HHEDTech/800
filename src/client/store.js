@@ -10,8 +10,8 @@
  */
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducers from './reducers/reducerIndex';
+import rootReducer from './reducers/reducerIndex';
 
-const store = createStore(reducers, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default store;

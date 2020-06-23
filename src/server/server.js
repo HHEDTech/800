@@ -42,7 +42,7 @@ app.post(
     return res.status(200).send('Score added');
   }
 );
-app.get('/scores', scoreController.getHighScores, (req, res) => {
+app.get('/scores', scoreController.getUserScores, (req, res) => {
   return res.status(200).json({ userScores: res.locals.userScores });
 });
 app.get('/leaderboard', scoreController.getLeaderboard, (req, res) => {

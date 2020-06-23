@@ -14,7 +14,9 @@ const actions = {};
 // export const MOVE = 'MOVE'
 // export const UPDATE_SCORE = 'UPDATE_SCORE';
 // export const LOGIN = 'LOGIN';
-const moveUp = (direction) => ({
+actions.move = (direction) => ({
   type: types.MOVE,
   payload: direction,
 });
+
+export default actions;

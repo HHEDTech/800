@@ -1,33 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import { useDispatch } from 'react-redux';
-import * as types from '../actions/actionTypes';
-
-const [press, setPressed] = setState(false);
-
-const keys = {
-  '37': 'left',
-  '38': 'up',
-  '39': 'right',
-  '40': 'down',
-};
-
-const keyDownHandle = (e) => {
-  if(e.key === 37 || e.key === 65) 
-  if(e.key === 38 || e.key === 87)
-  if(e.key === 39 || e.key === 68)
-  if(e.key === 40 || e.key === 83)
-} 
-
-useEffect(() => {
-  const onKeyDown = ({key}) => {
-    if ()
-  };
-}, []);
+import * as types from './actions/actionTypes';
+import actions from './actions/actions';
+import Board from './components/Board.jsx';
 
 const App = () => {
+  const [press, setPressed] = useState(false);
+  const dispatch = useDispatch();
+
+  const keys = {
+    '37': 'LEFT',
+    '65': 'LEFT',
+    '38': 'UP',
+    '87': 'UP',
+    '39': 'RIGHT',
+    '68': 'RIGHT',
+    '40': 'DOWN',
+    '83': 'DOWN',
+  };
+
+  const keyDownHandle = (e) => {
+    e.preventDefault();
+    if (!keys[e.keyCode]) return;
+    console.log(keys[e.keyCode]);
+    dispatch(actions.move(keys[e.keyCode]));
+  };
+
   return (
-    <div onKeyDown={keyDownHandle}>
+    <div onKeyDown={keyDownHandle} tabIndex={0}>
       <h1>800 HEX CHALLENGE OF DEATH</h1>
       <Board />
     </div>

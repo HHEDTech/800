@@ -25,7 +25,7 @@ scoreController.getUserScores = (req, res, next) => {
         message: { error: `Error from database: ${err}` },
       });
 
-    res.localStorage.userScores = data.rows[0];
+    res.locals.userScores = data.rows[0];
     return next();
   });
 };
@@ -40,7 +40,7 @@ scoreController.getLeaderboard = (req, res, next) => {
       });
     const scores = data.rows[0];
     scores.sort((a, b) => b - a);
-    res.localStorage.leaderboard = scores;
+    res.locals.leaderboard = scores;
     return next();
   });
 };
