@@ -3,11 +3,13 @@ import { render } from 'react-dom';
 import { useSelector } from 'react-redux';
 import * as types from '../actions/actionTypes';
 import Box from './Box.jsx';
-import store from '../store.js';
 
 const Board = () => {
-  const boardArr = useSelector((state) => state.boxes.board);
-  console.log(boardArr);
+  const boardArr = useSelector((state) => {
+    console.log('State', state);
+    return state.boxes.board;
+  });
+  console.log('boardArr -> ', boardArr);
   const boxes = boardArr.map((box, idx) => (
     <Box key={`box-${idx}`} number={box} />
   ));
