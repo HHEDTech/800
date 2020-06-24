@@ -14,9 +14,20 @@ $darkFontColor: #333;
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(255, 197, 91);
+  color: white;
+  .nav {
+    background-color: #333;
+    display: flex;
+    justify-content: space-around;
+    .login-btn {
+      position: absolute;
+      left: 0;
+    }
+  }
 }
 
-.container {
+.game-container {
   padding: 0 2.5%;
   display: flex;
   justify-content: center;
@@ -37,6 +48,10 @@ body {
   //grid-template-columns: 1fr 1fr 1fr 1fr;
   border: 1px solid black;
   box-shadow: 5px 5px 5px black;
+}
+.scores {
+  background-color: rgb(124, 124, 124);
+  border-radius: 3px;
 }
 .box {
   background-color: white;

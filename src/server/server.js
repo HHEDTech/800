@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // console.log(path.join(__dirname, '../../index.html'));
 
-app.use('/build', express.static(path.join(__dirname, '../../build')));
+// app.use('/build', express.static(path.join(__dirname, '../../build')));
 app.use(express.static(path.resolve(__dirname, '../assets')));
 
 app.post('/signup', userController.createUser, sessionController.createSession, (req, res) => {
