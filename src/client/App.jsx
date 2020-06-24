@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
-import { render } from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import * as types from './actions/actionTypes';
@@ -23,13 +22,27 @@ const App = () => {
   };
 
   const keyDownHandle = (e) => {
-    e.preventDefault();
     if (!keys[e.keyCode]) return;
+    e.preventDefault();
     console.log(keys[e.keyCode]);
     dispatch(actions.move(keys[e.keyCode]));
   };
+
+  const getHighScores = () => {
+    fetch('/scores')
+      .then((scores) => console.log('scores: ', scores))
+      .catch((err) => console.log(err));
+  };
+
+  const postScore = () => {
+    fetch('/scores', {
+      method: 'POST',
+    });
+  };
+
   useEffect(() => {
     document.addEventListener('keydown', keyDownHandle);
+    // getHighScores();
   }, []);
 
   return (
