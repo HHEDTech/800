@@ -18,10 +18,7 @@ module.exports = {
     },
   },
   mode: process.env.NODE_ENV,
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin()],
   module: {
     rules: [
       {

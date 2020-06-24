@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import * as types from './actions/actionTypes';
 import actions from './actions/actions';
 import Board from './components/Board.jsx';
 import Nav from './components/Nav.jsx';
@@ -41,8 +40,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', keyDownHandle);
-    // getHighScores();
+    const board = document.querySelector('.board');
+    board.addEventListener('keydown', keyDownHandle);
   }, []);
 
   return (
