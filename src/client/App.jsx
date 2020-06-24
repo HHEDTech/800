@@ -40,13 +40,8 @@ const App = () => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
     const board = document.querySelector('.board');
     board.addEventListener('keydown', keyDownHandle);
-=======
-    document.addEventListener('keydown', keyDownHandle);
-    // getHighScores();
->>>>>>> cdaa85a45c404c5b91fa23b4ff42cef466579a1d
   }, []);
 
   return (
