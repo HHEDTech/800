@@ -1,11 +1,9 @@
 // import * as types from '../actions/actionTypes';
 
 const initialState = {
-  board: new Array(16).fill(null).map(() => ({
-    number: null,
-    top: null,
-    left: null,
-  })),
+  score: 0,
+  leaderboard: [],
+  board: new Array(16).fill(null),
 };
 
 // get loc of first
@@ -20,8 +18,8 @@ let aValue = 2;
 // set second to 50/50 chance of 2 or 4
 let bValue = 2 * Math.floor(Math.random() * 2) + 2;
 // assign
-initialState.board[a].number = aValue;
-initialState.board[b].number = bValue;
+initialState.board[a] = aValue;
+initialState.board[b] = bValue;
 
 /*
 board = [1,  2,  3,  4,
