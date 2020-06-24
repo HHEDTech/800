@@ -11,7 +11,10 @@ module.exports = {
   devServer: {
     publicPath: '/build/',
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/scores': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/scores': '' },
+      },
     },
   },
   mode: process.env.NODE_ENV,

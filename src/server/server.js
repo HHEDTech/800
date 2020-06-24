@@ -17,31 +17,16 @@ app.use(cookieParser());
 app.use('/build', express.static(path.join(__dirname, '../../build')));
 app.use(express.static(path.resolve(__dirname, '../assets')));
 
-app.post(
-  '/signup',
-  userController.createUser,
-  sessionController.createSession,
-  (req, res) => {
-    console.log('At end of POST signup');
-    return res.status(200).redirect('/');
-  }
-);
-app.post(
-  '/login',
-  userController.verifyUser,
-  sessionController.createSession,
-  (req, res) => {
-    return res.status(200).redirect('/');
-  }
-);
-app.post(
-  '/scores',
-  sessionController.verifySession,
-  scoreController.addScore,
-  (req, res) => {
-    return res.status(200).send('Score added');
-  }
-);
+app.post('/signup', userController.createUser, sessionController.createSession, (req, res) => {
+  console.log('At end of POST signup');
+  return res.status(200).redirect('/');
+});
+app.post('/login', userController.verifyUser, sessionController.createSession, (req, res) => {
+  return res.status(200).redirect('/');
+});
+app.post('/scores', sessionController.verifySession, scoreController.addScore, (req, res) => {
+  return res.status(200).send('Score added');
+});
 app.get('/scores', scoreController.getUserScores, (req, res) => {
   return res.status(200).json({ userScores: res.locals.userScores });
 });
@@ -49,22 +34,20 @@ app.get('/leaderboard', scoreController.getLeaderboard, (req, res) => {
   return res.status(200).json({ leaderboard: res.locals.leaderboard });
 });
 
-//handle requests for static files
+// handle requests for static files
 if (process.env.NODE_env === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../../build')));
 
   app.get('/', (req, res) => {
     // console.log(req)
-    return res
-      .status(200)
-      .sendFile(path.resolve(__dirname, '../../index.html'));
+    return res.status(200).sendFile(path.resolve(__dirname, '../../index.html'));
   });
 }
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../../index.html'));
 });
 
-//Error handling
+// Error handling
 app.use('/', (req, res) => {
   res.status(404).send('You made a stupid mistake');
 });
@@ -80,7 +63,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-//Start our server
+// Start our server
 app.listen(PORT, () => {
-  `APP listening on port: ${PORT}`;
+  console.log(`APP listening on port: ${PORT}`);
 });
