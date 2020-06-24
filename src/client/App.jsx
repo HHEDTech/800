@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import actions from './actions/actions';
+import './Modal.css';
 import Board from './components/Board.jsx';
 import Nav from './components/Nav.jsx';
+import Modal from './components/Modal.jsx';
+import ScoresPanel from './components/ScoresPanel.jsx';
+import useModal from './common/useModal';
 
 const App = () => {
   const [press, setPressed] = useState(false);
@@ -47,7 +51,10 @@ const App = () => {
   return (
     <div className="container">
       <Nav />
-      <Board />
+      <div className="game-container">
+        <ScoresPanel />
+        <Board />
+      </div>
     </div>
   );
 };
