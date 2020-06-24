@@ -1,8 +1,24 @@
-import React from "react";
-import { render } from "react-dom";
-import App from "./App.jsx";
+/**
+ * ************************************
+ *
+ * @module  index.js
+ * @author  HHEDTech
+ * @date    6/23/2020
+ * @description entry point for application.  Hangs React app off of #roots in index.html
+ *
+ * ************************************
+ */
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 
-// uncomment so that webpack can bundle styles
-import styles from "./styles.scss";
+import store from './store';
+import App from './App';
+import styles from './styles.scss';
 
-render(<App />, document.getElementById("root"));
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

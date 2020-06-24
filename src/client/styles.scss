@@ -1,24 +1,100 @@
-body {
-    margin: 0;
-  }
-  
-  .container {
-    padding: 0 2.5%;
-  }
-  .row {
-      display: grid;
-      width: 408px;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+$color2: rgb(183, 229, 255);
+$color4: darken($color2, 9%);
+$color8: darken($color2, 18%);
+$color10: darken($color2, 27%);
+$color20: darken($color2, 36%);
+$color40: darken($color2, 45%);
+$color80: darken($color2, 54%);
+$color100: darken($color2, 63%);
+$color200: darken($color2, 72%);
+$color400: darken($color2, 81%);
+$color800: darken($color2, 90%);
+$darkFontColor: #333;
 
-  }
-  #box {
-    height: 100px;
-    width: 100px;
-    border: 1px solid black;
-    font-size: 60px;
-    text-align: center;
-    line-height: 100px;
-    // vertical-align: text-bottom;
-    // display: inline-block
-  }
-  
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  padding: 0 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.board {
+  background-color: rgb(124, 124, 124);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  top: 50px;
+  width: 50%;
+  max-width: 550px;
+  height: 50%;
+  padding: 5px 5px;
+  //grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px black;
+}
+.box {
+  background-color: white;
+  margin: 3px;
+  height: 22%;
+  width: 22%;
+  // border: 1px solid black;
+  border-radius: 0.1em;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+}
+.color2 {
+  background-color: $color2;
+  color: #333;
+}
+.color4 {
+  background-color: $color4;
+  color: #333;
+}
+.color8 {
+  background-color: $color8;
+  color: #333;
+}
+.color10 {
+  background-color: $color10;
+  color: #333;
+}
+.color20 {
+  background-color: $color20;
+  color: #eee;
+}
+.color40 {
+  background-color: $color40;
+  color: #eee;
+}
+.color80 {
+  background-color: $color80;
+  color: #eee;
+}
+.color100 {
+  background-color: $color100;
+  color: #eee;
+}
+.color200 {
+  background-color: $color200;
+  color: #eee;
+}
+.color400 {
+  background-color: $color400;
+  color: #eee;
+}
+.color800 {
+  background-color: $color800;
+  color: #eee;
+}
+.black {
+  background-color: black;
+  color: #eee;
+}
