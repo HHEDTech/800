@@ -11,14 +11,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import store from './store';
-import App from './App';
+import App from './App.jsx';
 import styles from './styles.scss';
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+    ,
+  </Router>,
   document.getElementById('root')
 );

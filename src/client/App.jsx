@@ -2,10 +2,9 @@ import React, { Component, useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-import * as types from './actions/actionTypes';
 import actions from './actions/actions';
-import Board from './components/Board';
-import Nav from './components/Nav';
+import Board from './components/Board.jsx';
+import Nav from './components/Nav.jsx';
 
 const App = () => {
   const [press, setPressed] = useState(false);
@@ -23,13 +22,14 @@ const App = () => {
   };
 
   const keyDownHandle = (e) => {
-    e.preventDefault();
     if (!keys[e.keyCode]) return;
+    e.preventDefault();
     console.log(keys[e.keyCode]);
     dispatch(actions.move(keys[e.keyCode]));
   };
   useEffect(() => {
-    document.addEventListener('keydown', keyDownHandle);
+    const board = document.querySelector('.board');
+    board.addEventListener('keydown', keyDownHandle);
   }, []);
 
   return (
