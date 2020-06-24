@@ -1,7 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { useSelector } from 'react-redux';
-import * as types from '../actions/actionTypes';
 import Box from './Box.jsx';
 
 const Board = () => {
@@ -10,9 +8,49 @@ const Board = () => {
     return state.boxes.board;
   });
   console.log('boardArr -> ', boardArr);
-  const boxes = boardArr.map((box, idx) => (
-    <Box key={`box-${idx}`} number={box.number} />
-  ));
+  const boxes = boardArr.map((number, idx) => {
+    let color;
+    switch (number) {
+      case null:
+        break;
+      case 2:
+        color = 'color2';
+        break;
+      case 4:
+        color = 'color4';
+        break;
+      case 8:
+        color = 'color8';
+        break;
+      case 10:
+        color = 'color10';
+        break;
+      case 20:
+        color = 'color20';
+        break;
+      case 40:
+        color = 'color40';
+        break;
+      case 80:
+        color = 'color80';
+        break;
+      case 100:
+        color = 'color100';
+        break;
+      case 200:
+        color = 'color200';
+        break;
+      case 400:
+        color = 'color400';
+        break;
+      case 800:
+        color = 'color800';
+        break;
+      default:
+        color = 'black';
+    }
+    return <Box key={`box-${idx}`} number={number} color={color} />;
+  });
 
   return <div className="board">{boxes}</div>;
 };
