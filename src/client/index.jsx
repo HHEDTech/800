@@ -16,6 +16,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import App from './App.jsx';
 import styles from './styles.scss';
+import './Modal.css';
 
 render(
   <Router>

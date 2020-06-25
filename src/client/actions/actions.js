@@ -23,7 +23,15 @@ actions.updateLeaderboard = (scoresArray) => ({
 });
 
 actions.setLogin = (username) => ({
-  type: types.LOGIN,
+  type: types.LOGIN_SUCCESS,
   payload: username,
+});
+actions.setLoginModal = (status) => ({
+  type: types.LOGIN_MODAL,
+  payload: status,
+});
+actions.setSignupModal = (status) => ({
+  type: types.SIGNUP_MODAL,
+  payload: status,
 });
 export default actions;

@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
 
 import boxesReducer from './boxesReducer';
-import scoresReducer from './scoresReducer';
+import loginReducer from './loginReducer';
 import leaderboardReducer from './leaderboardReducer';
+import modalReducer from './modalReducer';
 
 // combine reducers
 const reducers = combineReducers({
   boxes: boxesReducer,
-  scores: scoresReducer,
+  username: loginReducer,
   leaderboard: leaderboardReducer,
+  modals: modalReducer,
 });
 
 // make the combined reducers available for import
