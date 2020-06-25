@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ScoresPanel from './ScoresPanel.jsx';
 import Box from './Box.jsx';
+// import Leaderboard from './Leaderboard.jsx'
 
 const Board = () => {
   const boardArr = useSelector((state) => {
@@ -52,7 +54,15 @@ const Board = () => {
     return <Box key={`box-${idx}`} number={number} color={color} />;
   });
 
-  return <div className="board">{boxes}</div>;
+  return (
+    <div className="main-container">
+      <div className="game-container">
+        <ScoresPanel />
+        <div className="board">{boxes}</div>
+      </div>
+      {/* <Leaderboard /> */}
+    </div>
+  );
 };
 
 export default Board;

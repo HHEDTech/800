@@ -47,7 +47,7 @@ const Login = (props) => {
         />
         <input type="submit" value="Submit" />
       </form>
-      <Link to="/register">Sign Up!!!</Link>
+      {/* <Link to="/register">Sign Up!</Link> */}
     </div>
   );
 };

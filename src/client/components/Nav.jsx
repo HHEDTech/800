@@ -9,8 +9,12 @@ export default function Nav() {
 
   return (
     <div className="nav">
-      <button type="button" className="button-default login-btn" onClick={toggle}>
-        LOGIN!!@!!
+      <button
+        type="button"
+        className="button-default login-btn"
+        onClick={toggle}
+      >
+        LOGIN
       </button>
       <Modal isShowing={isShowing} hide={toggle} />
       <h1>800 HEX CHALLENGE OF DEATH</h1>
