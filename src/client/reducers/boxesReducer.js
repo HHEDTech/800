@@ -44,7 +44,7 @@ const boxesReducer = (state = initialState, action) => {
         // If doubles, legal
       for(let i = 0; i < 4; i++){
         for(let j = 0; j < 3; j++){
-          if(columns[i][j] === columns[i][j + 1]){
+          if(columns[i][j] === columns[i][j + 1] && columns[i][j] !== null){
             legal = true;
             break;
           }
@@ -54,9 +54,10 @@ const boxesReducer = (state = initialState, action) => {
         } 
       }
           // If have column count of 1, 2, or 3, legal
+          // Make this actual column count
         if(!legal){
           for(let i = 0; i < 4; i++){
-            if(columns[i].length % 4) {
+            if(!rows[i].reduce((a, c) => a && c)) {
               legal = true;
               break;
             }
@@ -96,12 +97,12 @@ const boxesReducer = (state = initialState, action) => {
               }
             }
           // add random 2 or 4 in empty square
-          const empty = [];
-          newBoard.forEach((x, i) => {
-            if(!x) {
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
               empty.push(i);
             }
-          });
+          }
           let loc = Math.floor(Math.random() * empty.length);
           newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
@@ -160,7 +161,7 @@ const boxesReducer = (state = initialState, action) => {
           // If have column count of 1, 2, or 3, legal
         if(!legal){
           for(let i = 0; i < 4; i++){
-            if(columns[i].length % 4) {
+            if(!columns[i].reduce((a, c) => a && c)) {
               legal = true;
               break;
             }
@@ -201,12 +202,12 @@ const boxesReducer = (state = initialState, action) => {
               }
             }
           // add random 2 or 4 in empty square
-          const empty = [];
-          newBoard.forEach((x, i) => {
-            if(!x) {
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
               empty.push(i);
             }
-          });
+          }
           let loc = Math.floor(Math.random() * empty.length);
           newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
@@ -264,7 +265,7 @@ const boxesReducer = (state = initialState, action) => {
           // If have row count of 1, 2, or 3, legal
         if(!legal){
           for(let i = 0; i < 4; i++){
-            if(rows[i].length % 4) {
+            if(!rows[i].reduce((a, c) => a && c)) {
               legal = true;
               break;
             }
@@ -304,12 +305,12 @@ const boxesReducer = (state = initialState, action) => {
               }
             }
           // add random 2 or 4 in empty square
-          const empty = [];
-          newBoard.forEach((x, i) => {
-            if(!x) {
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
               empty.push(i);
             }
-          });
+          }
           let loc = Math.floor(Math.random() * empty.length);
           newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
@@ -367,7 +368,7 @@ const boxesReducer = (state = initialState, action) => {
           // If have row count of 1, 2, or 3, legal
         if(!legal){
           for(let i = 0; i < 4; i++){
-            if(rows[i].length % 4) {
+            if(!rows[i].reduce((a, c) => a && c)) {
               legal = true;
               break;
             }
@@ -407,12 +408,12 @@ const boxesReducer = (state = initialState, action) => {
               }
             }
           // add random 2 or 4 in empty square
-          const empty = [];
-          newBoard.forEach((x, i) => {
-            if(!x) {
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
               empty.push(i);
             }
-          });
+          }
           let loc = Math.floor(Math.random() * empty.length);
           newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
