@@ -6,7 +6,6 @@ import LoginModal from './LoginModal.jsx';
 export default function Nav() {
   const { isShowing: loginShowing, toggle: loginToggle } = useModal();
   const { isShowing: signinShowing, toggle: signinToggle } = useModal();
-  // Need to add login stuff
 
   return (
     <div className="nav">

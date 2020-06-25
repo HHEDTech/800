@@ -15,10 +15,19 @@ module.exports = {
         target: 'http://localhost:3000',
         pathRewrite: { '^/scores': '' },
       },
+      '/leaderboard': {
+        target: 'http://localhost:3000',
+      },
+      '/users': {
+        target: 'http://localhost:3000',
+      },
     },
   },
   mode: process.env.NODE_ENV,
-  plugins: [new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   module: {
     rules: [
       {

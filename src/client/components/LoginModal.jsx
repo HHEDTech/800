@@ -29,7 +29,6 @@ const LoginModal = ({ isShowing, hide, isLogin }) =>
                 </button>
               </div>
               {isLogin ? <Login /> : <Signup />}
-              {/* <Login /> */}
             </div>
           </div>
         </>,
