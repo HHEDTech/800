@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import actions from '../actions/actions';
 
 const Login = (props) => {
   const [input, setInput] = useState({ username: '', password: '' });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    console.log('e.target', e.target);
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
@@ -13,21 +14,24 @@ const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('e.target', e.target);
-    fetch('/api/login', {
-      METHOD: 'POST',
+    fetch('/login', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: {
+      body: JSON.stringify({
         username: input.username,
         password: input.password,
-      },
+      }),
+    }).then((res) => {
+      dispatch(actions.setLogin(input.username));
+      dispatch(actions.setLoginModal(false));
     });
   };
 
   return (
-    <div>
-      <span>Login</span>
+    <div className="login-title">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
@@ -40,14 +44,14 @@ const Login = (props) => {
         <input
           onChange={handleChange}
           autoComplete="off"
-          type="text"
+          type="password"
           name="password"
           placeholder="Password"
           value={input.password}
         />
         <input type="submit" value="Submit" />
       </form>
-      {/* <Link to="/register">Sign Up!</Link> */}
+      No account? <button className="signup-redirect"></button>
     </div>
   );
 };

@@ -37,6 +37,7 @@ userController.createUser = (req, res, next) => {
 };
 
 userController.verifyUser = (req, res, next) => {
+  console.log('Entering verify user');
   const { username, password } = req.body;
   if (!username.length || !password.length) {
     return next({

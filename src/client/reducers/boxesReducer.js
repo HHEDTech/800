@@ -1,6 +1,5 @@
 // import * as types from '../actions/actionTypes';
 
-
 const initialState = {
   score: 0,
   // leaderboard: [],
@@ -51,10 +50,21 @@ const boxesReducer = (state = initialState, action) => {
             break;
           }
         }
-        if(legal) {
+      }
+    //   if (legal) {
+    //     break;
+    //   }
+    // }
+    // If have column count of 1, 2, or 3, legal
+    // Make this actual column count
+    if (!legal) {
+      for (let i = 0; i < 4; i++) {
+        if (columns[i].length % 4) {
+          legal = true;
           break;
         } 
       }
+    }
           // If have column count of 1, 2, or 3, legal
           // Make this actual column count
         if(!legal){
@@ -185,7 +195,7 @@ const boxesReducer = (state = initialState, action) => {
             break;
           }
         }
-        if(legal) {
+        if (!game) {
           break;
         } 
       }
