@@ -38,8 +38,8 @@ scoreController.getLeaderboard = (req, res, next) => {
         log: 'Error finding high scores in getLeaderboard',
         message: { error: `Error from database: ${err}` },
       });
-    const scores = data.rows[0];
-    scores.sort((a, b) => b - a);
+    const scores = data.rows;
+    scores.sort((a, b) => b.score - a.score);
     res.locals.leaderboard = scores;
     return next();
   });

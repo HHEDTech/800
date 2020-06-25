@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import ScoresPanel from './ScoresPanel.jsx';
 import Box from './Box.jsx';
-// import Leaderboard from './Leaderboard.jsx'
+import Leaderboard from './Leaderboard.jsx';
 
 const Board = () => {
   const boardArr = useSelector((state) => {
@@ -60,7 +60,7 @@ const Board = () => {
         <ScoresPanel />
         <div className="board">{boxes}</div>
       </div>
-      {/* <Leaderboard /> */}
+      <Leaderboard />
     </div>
   );
 };

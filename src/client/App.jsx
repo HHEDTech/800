@@ -44,8 +44,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    const board = document.querySelector('.board');
-    board.addEventListener('keydown', keyDownHandle);
+    const board = document.querySelector('.game-container');
+    board.setAttribute('tabindex', 0);
+    board.addEventListener('keydown', keyDownHandle, true);
   }, []);
 
   return (
