@@ -24,6 +24,10 @@ const Login = (props) => {
         password: input.password,
       }),
     }).then((res) => {
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ username: input.username })
+      );
       fetch('/scores', {
         method: 'GET',
         headers: {

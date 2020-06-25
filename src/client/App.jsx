@@ -40,7 +40,21 @@ const App = () => {
         });
     }
   }
-
+  const activeUser = JSON.parse(localStorage.getItem('user'));
+  if (activeUser) {
+    fetch('/scores', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('/scores response', res);
+        dispatch(actions.setHighScore(res.highscore));
+      });
+    dispatch(actions.setLogin(activeUser.username));
+  }
   const keyDownHandle = (e) => {
     if (!keys[e.keyCode]) return;
     e.preventDefault();
