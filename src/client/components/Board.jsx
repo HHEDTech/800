@@ -1,16 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ScoresPanel from './ScoresPanel.jsx';
 import Box from './Box.jsx';
 import Leaderboard from './Leaderboard.jsx';
+import actions from '../actions/actions';
 
 const Board = () => {
+  const dispatch = useDispatch();
   const boardArr = useSelector((state) => {
     console.log('State', state);
     return state.boxes.board;
   });
   const newTiles = useSelector((state) => state.boxes.newTiles);
-  const resetGame = () => {};
+  const resetGame = () => {
+    dispatch(actions.resetBoard());
+  };
   console.log('boardArr -> ', boardArr);
   const boxes = boardArr.map((number, idx) => {
     let color;
@@ -67,7 +71,7 @@ const Board = () => {
         <button
           type="button"
           onClick={() => {
-            resetGame;
+            resetGame();
           }}
         >
           Reset Game

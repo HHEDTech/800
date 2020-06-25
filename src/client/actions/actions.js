@@ -36,5 +36,7 @@ actions.setHighScore = (highscore) => ({
   type: types.UPDATE_HIGHSCORE,
   payload: highscore,
 });
-
+actions.resetBoard = () => ({
+  type: types.RESET_BOARD,
+});
 export default actions;

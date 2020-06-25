@@ -65,7 +65,7 @@ const Login = (props) => {
           placeholder="Password"
           value={input.password}
         />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Login" />
       </form>
       No account?{' '}
       <button className="signup-redirect" onClick={(e) => loginSignupToggle(e)}>

@@ -1,29 +1,32 @@
-// import * as types from '../actions/actionTypes';
+import * as types from '../actions/actionTypes';
 import { useSelector } from 'react-redux';
+import actions from '../actions/actions';
 
-const initialState = {
-  score: 0,
-  // leaderboard: [],
-  gameOver: false,
-  board: new Array(16).fill(null),
-  newTiles: null,
+const generateInitialState = () => {
+  const initialState = {
+    score: 0,
+    gameOver: false,
+    board: new Array(16).fill(null),
+    newTiles: null,
+  };
+
+  // get loc of first
+  const a = Math.floor(Math.random() * 16);
+  let b = a;
+  // get valid loc of second
+  while (b == a) {
+    b = Math.floor(Math.random() * 16);
+  }
+  // set first to 2
+  const aValue = 2;
+  // set second to 50/50 chance of 2 or 4
+  const bValue = 2 * Math.floor(Math.random() * 2) + 2;
+  // assign
+  initialState.board[a] = aValue.toString();
+  initialState.board[b] = bValue.toString();
+  initialState.newTiles = [a, b];
+  return initialState;
 };
-
-// get loc of first
-const a = Math.floor(Math.random() * 16);
-let b = a;
-// get valid loc of second
-while (b == a) {
-  b = Math.floor(Math.random() * 16);
-}
-// set first to 2
-const aValue = 2;
-// set second to 50/50 chance of 2 or 4
-const bValue = 2 * Math.floor(Math.random() * 2) + 2;
-// assign
-initialState.board[a] = aValue.toString();
-initialState.board[b] = bValue.toString();
-initialState.newTiles = [a, b];
 
 /*
 board = [0,  1,  2,  3,
@@ -44,8 +47,13 @@ const postScore = () => {
   });
 };
 
-const boxesReducer = (state = initialState, action) => {
+const boxesReducer = (state = generateInitialState(), action) => {
+  if (action.type === types.RESET_BOARD) {
+    const initialState = generateInitialState();
+    return { ...initialState };
+  }
   if (action.payload === 'UP') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -156,6 +164,7 @@ const boxesReducer = (state = initialState, action) => {
       let loc = Math.floor(Math.random() * empty.length);
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
+      newTiles = [empty[loc]];
     } else {
       newBoard = state.board.map((x) => (x ? parseInt(x, 16) : null));
       // if not legal check if L/R is legal
@@ -189,8 +198,15 @@ const boxesReducer = (state = initialState, action) => {
       }
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'DOWN') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -290,6 +306,7 @@ const boxesReducer = (state = initialState, action) => {
       let loc = Math.floor(Math.random() * empty.length);
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
+      newTiles = [empty[loc]];
     } else {
       newBoard = state.board.map((x) => (x ? parseInt(x, 16) : null));
       // if not legal check if L/R is legal
@@ -323,7 +340,13 @@ const boxesReducer = (state = initialState, action) => {
       }
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'LEFT') {
     let newTiles;
     let game = false;
@@ -425,6 +448,7 @@ const boxesReducer = (state = initialState, action) => {
       let loc = Math.floor(Math.random() * empty.length);
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
+      newTiles = [empty[loc]];
     } else {
       newBoard = state.board.map((x) => (x ? parseInt(x, 16) : null));
       // if not legal check if U/D is legal
@@ -458,7 +482,13 @@ const boxesReducer = (state = initialState, action) => {
       }
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'RIGHT') {
     let newTiles;
     let game = false;
@@ -560,6 +590,7 @@ const boxesReducer = (state = initialState, action) => {
       let loc = Math.floor(Math.random() * empty.length);
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
+      newTiles = [empty[loc]];
     } else {
       newBoard = state.board.map((x) => (x ? parseInt(x, 16) : null));
       // if not legal check if U/D is legal
@@ -593,7 +624,13 @@ const boxesReducer = (state = initialState, action) => {
       }
       newBoard = newBoard.map((x) => (x ? x.toString(16) : null));
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else {
     return state;
   }
