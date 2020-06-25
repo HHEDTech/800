@@ -31,29 +31,30 @@ board = [0,  1,  2,  3,
 
 const boxesReducer = (state = initialState, action) => {
   if (action.payload === 'UP') {
-    let game = false;
-    let score = state.score;
-    let legal = false;
-    let columns = [[], [], [], []];
-    let newBoard;
-    state.board.forEach((x, i) => {
-      if (x) {
-        columns[i % 4].push(x);
-      }
-    });
-    // check if move is legal
-    // If doubles, legal
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < columns[i].length - 1; j++) {
-        if (columns[i][j] === columns[i][j + 1]) {
-          legal = true;
-          break;
+      let game = false;
+      let score = state.score;
+      let legal = false;
+      let columns = [[], [], [], []];
+      let newBoard;
+      state.board.forEach((x, i) => {
+        if(x) {
+        columns[i % 4].push(parseInt(x, 16));
+        }
+      });
+      // check if move is legal
+        // If doubles, legal
+      for(let i = 0; i < 4; i++){
+        for(let j = 0; j < columns[i].length - 1; j++){
+          if(columns[i][j] === columns[i][j + 1]){
+            legal = true;
+            break;
+          }
         }
       }
-      if (legal) {
-        break;
-      }
-    }
+    //   if (legal) {
+    //     break;
+    //   }
+    // }
     // If have column count of 1, 2, or 3, legal
     // Make this actual column count
     if (!legal) {
@@ -61,239 +62,254 @@ const boxesReducer = (state = initialState, action) => {
         if (columns[i].length % 4) {
           legal = true;
           break;
-        }
+        } 
       }
     }
-    if (legal) {
-      // if legal
-      //check for doubles
-
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < columns[i].length - 1; j++) {
-          if (columns[i][j] === columns[i][j + 1]) {
-            columns[i][j] += columns[i][j + 1];
-            columns[i][j + 1] = null;
-            score += columns[i][j];
+          // If have column count of 1, 2, or 3, legal
+          // Make this actual column count
+        if(!legal){
+          for(let i = 0; i < 4; i++){
+            if(columns[i].length % 4) {
+              legal = true;
+              break;
+            }
           }
         }
-      }
-      newBoard = new Array(16).fill(null);
-      for (let i = 0; i < 4; i++) {
-        let k = 0;
-        for (let j = 0; j < columns[i].length; j++) {
-          if (columns[i][j]) {
-            newBoard[i + 4 * k] = columns[i][j];
-            k++;
-          }
-        }
-        // for(let j = k; j < 4; j++){
-        //   newBoard[i + 4 * j] = null;
-        // }
-      }
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 0; j < 3; j++){
-      //     // combine doubles
-      //   // update score
-      //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
-      //       let pos = i + 4*j;
-      //       newBoard[pos] += newBoard[pos + 4];
-      //       newBoard[pos + 4] = null;
-      //       score += newBoard[pos];
-      //     }
-      //   }
-      // }
+        if (legal) {
+        // if legal
+          //check for doubles
 
-      // move everything up that can move up
-      // nullify after move.
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 1; j < 4; j++){
-      //       let pos = i + 4*j;
-      //       let np = pos;
-      //       if(newBoard[pos]){
-      //         while(np > 3 && (!newBoard[np - 4])){
-      //           np -= 4;
-      //         }
-      //       }
-      //       if(np !== pos){
-      //         newBoard[np] = newBoard[pos];
-      //         newBoard[pos] = null;
-      //       }
-      //   }
-      // }
-      // add random 2 or 4 in empty square
-      let empty = [];
-      for (let i = 0; i < 16; i++) {
-        if (!newBoard[i]) {
-          empty.push(i);
+          for(let i = 0; i < 4; i++){
+            for(let j = 0; j < columns[i].length - 1; j++){
+              if(columns[i][j] === columns[i][j + 1]){
+                columns[i][j] += columns[i][j + 1];
+                columns[i][j+1] = null;
+                score += columns[i][j]
+              }
+            }
+          }
+           newBoard = new Array(16).fill(null);
+          for(let i = 0; i < 4; i++){
+            let k = 0;
+            for(let j = 0; j < columns[i].length; j++){
+              if(columns[i][j]){
+                newBoard[i + 4 * k] = columns[i][j];
+                k++;
+              }
+            }
+            // for(let j = k; j < 4; j++){
+            //   newBoard[i + 4 * j] = null;
+            // }
+          }
+          // for(let i = 0; i < 4; i++){
+          //   for(let j = 0; j < 3; j++){
+          //     // combine doubles
+          //   // update score
+          //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
+          //       let pos = i + 4*j;
+          //       newBoard[pos] += newBoard[pos + 4];
+          //       newBoard[pos + 4] = null;
+          //       score += newBoard[pos];
+          //     }
+          //   }
+          // }
+            
+          // move everything up that can move up
+            // nullify after move.
+            // for(let i = 0; i < 4; i++){
+            //   for(let j = 1; j < 4; j++){
+            //       let pos = i + 4*j;
+            //       let np = pos;
+            //       if(newBoard[pos]){
+            //         while(np > 3 && (!newBoard[np - 4])){
+            //           np -= 4;
+            //         }
+            //       }
+            //       if(np !== pos){
+            //         newBoard[np] = newBoard[pos];
+            //         newBoard[pos] = null;
+            //       }
+            //   }
+            // }
+          // add random 2 or 4 in empty square
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
+              empty.push(i);
+            }
+          }
+          let loc = Math.floor(Math.random() * empty.length);
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
+          newBoard = newBoard.map(x => x ? x.toString(16) : null);
+        } else {
+          newBoard = state.board.map(x => x ? parseInt(x, 16) : null);
+           // if not legal check if L/R is legal
+          // if not game over
+          let rows = [[], [], [], []];
+            state.board.forEach((x, i) => {
+              if(x) {
+                rows[i >> 2].push(x);
+              }
+            });
+            game = true;
+            for(let i = 0; i < 4; i++){
+              for(let j = 0; j < rows[i].length - 1; j++){
+                if(rows[i][j] === rows[i][j + 1]){
+                  game = false;
+                  break;
+                }
+              }
+              if(!game) {
+                break;
+              } 
+            }
+
+            if(game){
+              for(let i = 0; i < 4; i++){
+                if(rows[i].length % 4) {
+                  game = false;
+                  break;
+                }
+              }
+            }
+            newBoard = newBoard.map(x => x ? x.toString(16) : null);
         }
-      }
-      let loc = Math.floor(Math.random() * empty.length);
-      newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
-    } else {
-      newBoard = [...state.board];
-      // if not legal check if L/R is legal
-      // if not game over
-      let rows = [[], [], [], []];
+        return { ...state, board: newBoard, gameOver: game, score: score };
+    } else if (action.payload === 'DOWN') {
+      let game = false;
+      let score = state.score;
+      let legal = false;
+      let columns = [[], [], [], []];
+      let newBoard;
       state.board.forEach((x, i) => {
-        if (x) {
-          rows[i >> 2].push(x);
+        if(x) {
+        columns[i % 4].push(parseInt(x, 16));
         }
       });
-      game = true;
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < rows[i].length - 1; j++) {
-          if (rows[i][j] === rows[i][j + 1]) {
-            game = false;
+      // check if move is legal
+        // If doubles, legal
+      for(let i = 0; i < 4; i++){
+        for(let j = 0; j < columns[i].length - 1; j++){
+          if(columns[i][j] === columns[i][j + 1]){
+            legal = true;
             break;
           }
         }
         if (!game) {
           break;
-        }
+        } 
       }
+          // If have column count of 1, 2, or 3, legal
+          // Make this actual column count
+        if(!legal){
+          for(let i = 0; i < 4; i++){
+            if(columns[i].length % 4) {
+              legal = true;
+              break;
+            }
+          }
+        }
+        if (legal) {
+        // if legal
+          //check for doubles
 
-      if (game) {
-        for (let i = 0; i < 4; i++) {
-          if (rows[i].length % 4) {
-            game = false;
-            break;
+          for(let i = 0; i < 4; i++){
+            for(let j = columns[i].length - 1; j > 0; j--){
+              if(columns[i][j] === columns[i][j - 1]){
+                columns[i][j] += columns[i][j - 1];
+                columns[i][j-1] = null;
+                score += columns[i][j]
+              }
+            }
           }
-        }
-      }
-    }
-    return { ...state, board: newBoard, gameOver: game, score: score };
-  } else if (action.payload === 'DOWN') {
-    let game = false;
-    let score = state.score;
-    let legal = false;
-    let columns = [[], [], [], []];
-    let newBoard;
-    state.board.forEach((x, i) => {
-      if (x) {
-        columns[i % 4].push(x);
-      }
-    });
-    // check if move is legal
-    // If doubles, legal
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < columns[i].length - 1; j++) {
-        if (columns[i][j] === columns[i][j + 1]) {
-          legal = true;
-          break;
-        }
-      }
-      if (legal) {
-        break;
-      }
-    }
-    // If have column count of 1, 2, or 3, legal
-    // Make this actual column count
-    if (!legal) {
-      for (let i = 0; i < 4; i++) {
-        if (columns[i].length % 4) {
-          legal = true;
-          break;
-        }
-      }
-    }
-    if (legal) {
-      // if legal
-      //check for doubles
+          newBoard = new Array(16).fill(null);
+          for(let i = 0; i < 4; i++){
+            let k = 3;
+            for(let j = columns[i].length - 1; j >= 0; j--){
+              if(columns[i][j]){
+                newBoard[i + 4 * k] = columns[i][j];
+                k--;
+              }
+            }
+            // for(let j = k; j >= 0; j--){
+            //   newBoard[i + 4 * j] = null;
+            // }
+          }
+          // for(let i = 0; i < 4; i++){
+          //   for(let j = 0; j < 3; j++){
+          //     // combine doubles
+          //   // update score
+          //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
+          //       let pos = i + 4*j;
+          //       newBoard[pos] += newBoard[pos + 4];
+          //       newBoard[pos + 4] = null;
+          //       score += newBoard[pos];
+          //     }
+          //   }
+          // }
+            
+          // move everything up that can move up
+            // nullify after move.
+            // for(let i = 0; i < 4; i++){
+            //   for(let j = 1; j < 4; j++){
+            //       let pos = i + 4*j;
+            //       let np = pos;
+            //       if(newBoard[pos]){
+            //         while(np > 3 && (!newBoard[np - 4])){
+            //           np -= 4;
+            //         }
+            //       }
+            //       if(np !== pos){
+            //         newBoard[np] = newBoard[pos];
+            //         newBoard[pos] = null;
+            //       }
+            //   }
+            // }
+          // add random 2 or 4 in empty square
+          let empty = [];
+          for(let i = 0; i < 16; i++){
+            if(!newBoard[i]){
+              empty.push(i);
+            }
+          }
+          let loc = Math.floor(Math.random() * empty.length);
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
+          newBoard = newBoard.map(x => x ? x.toString(16) : null);
+        } else {
+          newBoard = state.board.map(x => x ? parseInt(x, 16) : null);
+           // if not legal check if L/R is legal
+          // if not game over
+          let rows = [[], [], [], []];
+            state.board.forEach((x, i) => {
+              if(x) {
+                rows[i >> 2].push(x);
+              }
+            });
+            game = true;
+            for(let i = 0; i < 4; i++){
+              for(let j = 0; j < rows[i].length - 1; j++){
+                if(rows[i][j] === rows[i][j + 1]){
+                  game = false;
+                  break;
+                }
+              }
+              if(!game) {
+                break;
+              } 
+            }
 
-      for (let i = 0; i < 4; i++) {
-        for (let j = columns[i].length - 1; j > 0; j--) {
-          if (columns[i][j] === columns[i][j - 1]) {
-            columns[i][j] += columns[i][j - 1];
-            columns[i][j - 1] = null;
-            score += columns[i][j];
-          }
+            if(game){
+              for(let i = 0; i < 4; i++){
+                if(rows[i].length % 4) {
+                  game = false;
+                  break;
+                }
+              }
+            }
+            newBoard = newBoard.map(x => x ? x.toString(16) : null);
         }
-      }
-      newBoard = new Array(16).fill(null);
-      for (let i = 0; i < 4; i++) {
-        let k = 3;
-        for (let j = columns[i].length - 1; j >= 0; j--) {
-          if (columns[i][j]) {
-            newBoard[i + 4 * k] = columns[i][j];
-            k--;
-          }
-        }
-        // for(let j = k; j >= 0; j--){
-        //   newBoard[i + 4 * j] = null;
-        // }
-      }
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 0; j < 3; j++){
-      //     // combine doubles
-      //   // update score
-      //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
-      //       let pos = i + 4*j;
-      //       newBoard[pos] += newBoard[pos + 4];
-      //       newBoard[pos + 4] = null;
-      //       score += newBoard[pos];
-      //     }
-      //   }
-      // }
+        return { ...state, board: newBoard, gameOver: game, score: score };
 
-      // move everything up that can move up
-      // nullify after move.
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 1; j < 4; j++){
-      //       let pos = i + 4*j;
-      //       let np = pos;
-      //       if(newBoard[pos]){
-      //         while(np > 3 && (!newBoard[np - 4])){
-      //           np -= 4;
-      //         }
-      //       }
-      //       if(np !== pos){
-      //         newBoard[np] = newBoard[pos];
-      //         newBoard[pos] = null;
-      //       }
-      //   }
-      // }
-      // add random 2 or 4 in empty square
-      let empty = [];
-      for (let i = 0; i < 16; i++) {
-        if (!newBoard[i]) {
-          empty.push(i);
-        }
-      }
-      let loc = Math.floor(Math.random() * empty.length);
-      newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
-    } else {
-      newBoard = [...state.board];
-      // if not legal check if L/R is legal
-      // if not game over
-      let rows = [[], [], [], []];
-      state.board.forEach((x, i) => {
-        if (x) {
-          rows[i >> 2].push(x);
-        }
-      });
-      game = true;
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < rows[i].length - 1; j++) {
-          if (rows[i][j] === rows[i][j + 1]) {
-            game = false;
-            break;
-          }
-        }
-        if (!game) {
-          break;
-        }
-      }
-
-      if (game) {
-        for (let i = 0; i < 4; i++) {
-          if (rows[i].length % 4) {
-            game = false;
-            break;
-          }
-        }
-      }
-    }
-    return { ...state, board: newBoard, gameOver: game, score: score };
   } else if (action.payload === 'LEFT') {
     let game = false;
     let score = state.score;
@@ -301,131 +317,133 @@ const boxesReducer = (state = initialState, action) => {
     let rows = [[], [], [], []];
     let newBoard;
     state.board.forEach((x, i) => {
-      if (x) {
-        rows[i >> 2].push(x);
+      if(x) {
+      rows[i >> 2].push(parseInt(x, 16));
       }
     });
     // check if move is legal
-    // If doubles, legal
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < rows[i].length - 1; j++) {
-        if (rows[i][j] === rows[i][j + 1]) {
+      // If doubles, legal
+    for(let i = 0; i < 4; i++){
+      for(let j = 0; j < rows[i].length - 1; j++){
+        if(rows[i][j] === rows[i][j + 1]){
           legal = true;
           break;
+        }
+      }
+      if(legal) {
+        break;
+      } 
+    }
+        // If have column count of 1, 2, or 3, legal
+        // Make this actual column count
+      if(!legal){
+        for(let i = 0; i < 4; i++){
+          if(rows[i].length % 4) {
+            legal = true;
+            break;
+          }
         }
       }
       if (legal) {
-        break;
-      }
-    }
-    // If have column count of 1, 2, or 3, legal
-    // Make this actual column count
-    if (!legal) {
-      for (let i = 0; i < 4; i++) {
-        if (rows[i].length % 4) {
-          legal = true;
-          break;
-        }
-      }
-    }
-    if (legal) {
       // if legal
-      //check for doubles
+        //check for doubles
 
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < rows[i].length - 1; j++) {
-          if (rows[i][j] === rows[i][j + 1]) {
-            rows[i][j] += rows[i][j + 1];
-            rows[i][j + 1] = null;
-            score += rows[i][j];
+        for(let i = 0; i < 4; i++){
+          for(let j = 0; j < rows[i].length - 1; j++){
+            if(rows[i][j] === rows[i][j + 1]){
+              rows[i][j] += rows[i][j + 1];
+              rows[i][j+1] = null;
+              score += rows[i][j]
+            }
           }
         }
-      }
-      newBoard = new Array(16).fill(null);
-      for (let i = 0; i < 4; i++) {
-        let k = 0;
-        for (let j = 0; j < rows[i].length; j++) {
-          if (rows[i][j]) {
-            newBoard[4 * i + k] = rows[i][j];
-            k++;
+        newBoard = new Array(16).fill(null);
+        for(let i = 0; i < 4; i++){
+          let k = 0;
+          for(let j = 0; j < rows[i].length; j++){
+            if(rows[i][j]){
+              newBoard[4 * i + k] = rows[i][j];
+              k++;
+            }
           }
+          // for(let j = k; j < 4; j++){
+          //   newBoard[i * 4 + j] = null;
+          // }
         }
-        // for(let j = k; j < 4; j++){
-        //   newBoard[i * 4 + j] = null;
+        // for(let i = 0; i < 4; i++){
+        //   for(let j = 0; j < 3; j++){
+        //     // combine doubles
+        //   // update score
+        //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
+        //       let pos = i + 4*j;
+        //       newBoard[pos] += newBoard[pos + 4];
+        //       newBoard[pos + 4] = null;
+        //       score += newBoard[pos];
+        //     }
+        //   }
         // }
-      }
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 0; j < 3; j++){
-      //     // combine doubles
-      //   // update score
-      //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
-      //       let pos = i + 4*j;
-      //       newBoard[pos] += newBoard[pos + 4];
-      //       newBoard[pos + 4] = null;
-      //       score += newBoard[pos];
-      //     }
-      //   }
-      // }
-
-      // move everything up that can move up
-      // nullify after move.
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 1; j < 4; j++){
-      //       let pos = i + 4*j;
-      //       let np = pos;
-      //       if(newBoard[pos]){
-      //         while(np > 3 && (!newBoard[np - 4])){
-      //           np -= 4;
-      //         }
-      //       }
-      //       if(np !== pos){
-      //         newBoard[np] = newBoard[pos];
-      //         newBoard[pos] = null;
-      //       }
-      //   }
-      // }
-      // add random 2 or 4 in empty square
-      let empty = [];
-      for (let i = 0; i < 16; i++) {
-        if (!newBoard[i]) {
-          empty.push(i);
-        }
-      }
-      let loc = Math.floor(Math.random() * empty.length);
-      newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
-    } else {
-      newBoard = [...state.board];
-      // if not legal check if U/D is legal
-      // if not game over
-      let columns = [[], [], [], []];
-      state.board.forEach((x, i) => {
-        if (x) {
-          columns[i % 4].push(x);
-        }
-      });
-      game = true;
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < columns[i].length - 1; j++) {
-          if (columns[i][j] === columns[i][j + 1]) {
-            game = false;
-            break;
+          
+        // move everything up that can move up
+          // nullify after move.
+          // for(let i = 0; i < 4; i++){
+          //   for(let j = 1; j < 4; j++){
+          //       let pos = i + 4*j;
+          //       let np = pos;
+          //       if(newBoard[pos]){
+          //         while(np > 3 && (!newBoard[np - 4])){
+          //           np -= 4;
+          //         }
+          //       }
+          //       if(np !== pos){
+          //         newBoard[np] = newBoard[pos];
+          //         newBoard[pos] = null;
+          //       }
+          //   }
+          // }
+        // add random 2 or 4 in empty square
+        let empty = [];
+        for(let i = 0; i < 16; i++){
+          if(!newBoard[i]){
+            empty.push(i);
           }
         }
-        if (!game) {
-          break;
-        }
-      }
-
-      if (game) {
-        for (let i = 0; i < 4; i++) {
-          if (columns[i].length % 4) {
-            game = false;
-            break;
+        let loc = Math.floor(Math.random() * empty.length);
+        newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
+        newBoard = newBoard.map(x => x ? x.toString(16) : null);
+      } else {
+        newBoard = state.board.map(x => x ? parseInt(x, 16) : null);
+         // if not legal check if U/D is legal
+        // if not game over
+        let columns = [[], [], [], []];
+          state.board.forEach((x, i) => {
+            if(x) {
+              columns[i % 4].push(x);
+            }
+          });
+          game = true;
+          for(let i = 0; i < 4; i++){
+            for(let j = 0; j < columns[i].length - 1; j++){
+              if(columns[i][j] === columns[i][j + 1]){
+                game = false;
+                break;
+              }
+            }
+            if(!game) {
+              break;
+            } 
           }
-        }
+
+          if(game){
+            for(let i = 0; i < 4; i++){
+              if(columns[i].length % 4) {
+                game = false;
+                break;
+              }
+            }
+          }
+          newBoard = newBoard.map(x => x ? x.toString(16) : null);
       }
-    }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+      return { ...state, board: newBoard, gameOver: game, score: score };
   } else if (action.payload === 'RIGHT') {
     let game = false;
     let score = state.score;
@@ -433,134 +451,136 @@ const boxesReducer = (state = initialState, action) => {
     let rows = [[], [], [], []];
     let newBoard;
     state.board.forEach((x, i) => {
-      if (x) {
-        rows[i >> 2].push(x);
+      if(x) {
+      rows[i >> 2].push(parseInt(x, 16));
       }
     });
     // check if move is legal
-    // If doubles, legal
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < rows[i].length - 1; j++) {
-        if (rows[i][j] === rows[i][j + 1]) {
+      // If doubles, legal
+    for(let i = 0; i < 4; i++){
+      for(let j = 0; j < rows[i].length - 1; j++){
+        if(rows[i][j] === rows[i][j + 1]){
           legal = true;
           break;
+        }
+      }
+      if(legal) {
+        break;
+      } 
+    }
+        // If have row count of 1, 2, or 3, legal
+        // Make this actual row count
+      if(!legal){
+        for(let i = 0; i < 4; i++){
+          if(rows[i].length % 4) {
+            legal = true;
+            break;
+          }
         }
       }
       if (legal) {
-        break;
-      }
-    }
-    // If have row count of 1, 2, or 3, legal
-    // Make this actual row count
-    if (!legal) {
-      for (let i = 0; i < 4; i++) {
-        if (rows[i].length % 4) {
-          legal = true;
-          break;
-        }
-      }
-    }
-    if (legal) {
       // if legal
-      //check for doubles
+        //check for doubles
 
-      for (let i = 0; i < 4; i++) {
-        for (let j = rows[i].length - 1; j > 0; j--) {
-          if (rows[i][j] === rows[i][j - 1]) {
-            rows[i][j] += rows[i][j - 1];
-            rows[i][j - 1] = null;
-            score += rows[i][j];
+        for(let i = 0; i < 4; i++){
+          for(let j = rows[i].length - 1; j > 0; j--){
+            if(rows[i][j] === rows[i][j - 1]){
+              rows[i][j] += rows[i][j - 1];
+              rows[i][j-1] = null;
+              score += rows[i][j]
+            }
           }
         }
-      }
-      newBoard = new Array(16).fill(null);
-      for (let i = 0; i < 4; i++) {
-        let k = 3;
-        for (let j = rows[i].length - 1; j >= 0; j--) {
-          if (rows[i][j]) {
-            newBoard[4 * i + k] = rows[i][j];
-            k--;
+        newBoard = new Array(16).fill(null);
+        for(let i = 0; i < 4; i++){
+          let k = 3;
+          for(let j = rows[i].length - 1; j >= 0; j--){
+            if(rows[i][j]){
+              newBoard[4 * i + k] = rows[i][j];
+              k--;
+            }
           }
+          // for(let j = k; j >=0; j--){
+          //   newBoard[i * 4 + j] = null;
+          // }
         }
-        // for(let j = k; j >=0; j--){
-        //   newBoard[i * 4 + j] = null;
+        // for(let i = 0; i < 4; i++){
+        //   for(let j = 0; j < 3; j++){
+        //     // combine doubles
+        //   // update score
+        //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
+        //       let pos = i + 4*j;
+        //       newBoard[pos] += newBoard[pos + 4];
+        //       newBoard[pos + 4] = null;
+        //       score += newBoard[pos];
+        //     }
+        //   }
         // }
-      }
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 0; j < 3; j++){
-      //     // combine doubles
-      //   // update score
-      //     if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
-      //       let pos = i + 4*j;
-      //       newBoard[pos] += newBoard[pos + 4];
-      //       newBoard[pos + 4] = null;
-      //       score += newBoard[pos];
-      //     }
-      //   }
-      // }
-
-      // move everything up that can move up
-      // nullify after move.
-      // for(let i = 0; i < 4; i++){
-      //   for(let j = 1; j < 4; j++){
-      //       let pos = i + 4*j;
-      //       let np = pos;
-      //       if(newBoard[pos]){
-      //         while(np > 3 && (!newBoard[np - 4])){
-      //           np -= 4;
-      //         }
-      //       }
-      //       if(np !== pos){
-      //         newBoard[np] = newBoard[pos];
-      //         newBoard[pos] = null;
-      //       }
-      //   }
-      // }
-      // add random 2 or 4 in empty square
-      let empty = [];
-      for (let i = 0; i < 16; i++) {
-        if (!newBoard[i]) {
-          empty.push(i);
-        }
-      }
-      let loc = Math.floor(Math.random() * empty.length);
-      newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
-    } else {
-      newBoard = [...state.board];
-      // if not legal check if U/D is legal
-      // if not game over
-      let columns = [[], [], [], []];
-      state.board.forEach((x, i) => {
-        if (x) {
-          columns[i % 4].push(x);
-        }
-      });
-      game = true;
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < columns[i].length - 1; j++) {
-          if (columns[i][j] === columns[i][j + 1]) {
-            game = false;
-            break;
+          
+        // move everything up that can move up
+          // nullify after move.
+          // for(let i = 0; i < 4; i++){
+          //   for(let j = 1; j < 4; j++){
+          //       let pos = i + 4*j;
+          //       let np = pos;
+          //       if(newBoard[pos]){
+          //         while(np > 3 && (!newBoard[np - 4])){
+          //           np -= 4;
+          //         }
+          //       }
+          //       if(np !== pos){
+          //         newBoard[np] = newBoard[pos];
+          //         newBoard[pos] = null;
+          //       }
+          //   }
+          // }
+        // add random 2 or 4 in empty square
+        let empty = [];
+        for(let i = 0; i < 16; i++){
+          if(!newBoard[i]){
+            empty.push(i);
           }
         }
-        if (!game) {
-          break;
-        }
-      }
-
-      if (game) {
-        for (let i = 0; i < 4; i++) {
-          if (columns[i].length % 4) {
-            game = false;
-            break;
-          }
-        }
-      }
-    }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+        let loc = Math.floor(Math.random() * empty.length);
+        newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
+        newBoard = newBoard.map(x => x ? x.toString(16) : null);
+      } else {
+          newBoard = state.board.map(x => x ? parseInt(x, 16) : null);
+          // if not legal check if U/D is legal
+         // if not game over
+         let columns = [[], [], [], []];
+           state.board.forEach((x, i) => {
+             if(x) {
+               columns[i % 4].push(x);
+             }
+           });
+           game = true;
+           for(let i = 0; i < 4; i++){
+             for(let j = 0; j < columns[i].length - 1; j++){
+               if(columns[i][j] === columns[i][j + 1]){
+                 game = false;
+                 break;
+               }
+             }
+             if(!game) {
+               break;
+             } 
+           }
+ 
+           if(game){
+             for(let i = 0; i < 4; i++){
+               if(columns[i].length % 4) {
+                 game = false;
+                 break;
+               }
+             }
+           }
+           newBoard = newBoard.map(x => x ? x.toString(16) : null);
+       }
+        return { ...state, board: newBoard, gameOver: game, score: score };
   } else {
     return state;
   }
-};
+}
 
 export default boxesReducer;
