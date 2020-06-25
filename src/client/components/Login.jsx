@@ -51,6 +51,7 @@ const Login = (props) => {
         />
         <input type="submit" value="Submit" />
       </form>
+      No account? <button className="signup-redirect"></button>
     </div>
   );
 };
