@@ -18,6 +18,7 @@ const LoginModal = ({ isShowing, hide, isLogin }) =>
           >
             <div className="modal">
               <div className="modal-header">
+                Login
                 <button
                   type="button"
                   className="modal-close-button"

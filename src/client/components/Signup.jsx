@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import actions from '../actions/actions';
 
 const Signup = (props) => {
+  const [input, setInput] = useState({ username: '', password: '' });
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('e.target', e.target);
+    fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: input.username,
+        password: input.password,
+      }),
+    }).then((res) => {
+      dispatch(actions.setSignupModal(false));
+    });
+  };
+
   return (
-    <div>
-      <span>Signup</span>
-      <input autoComplete="off" type="text" name="username" placeholder="username" />
-      <input autoComplete="off" type="text" name="password" placeholder="password" />
-      <button type="button">Submit</button>
+    <div className="login-title">
+      <h2>Signup</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleChange}
+          autoComplete="off"
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={input.username}
+        />
+        <input
+          onChange={handleChange}
+          autoComplete="off"
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={input.password}
+        />
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
 };
-
 export default Signup;

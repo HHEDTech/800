@@ -21,9 +21,14 @@ module.exports = {
       '/users': {
         target: 'http://localhost:3000',
       },
+      '/login': {
+        target: 'http://localhost:3000',
+      },
+      '/signup': {
+        target: 'http://localhost:3000',
+      },
     },
   },
-  mode: process.env.NODE_ENV,
   plugins: [
     new MiniCssExtractPlugin(),
     new webpack.HotModuleReplacementPlugin(),

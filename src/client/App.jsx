@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import actions from './actions/actions';
-import './Modal.css';
 import Board from './components/Board.jsx';
 import Nav from './components/Nav.jsx';
 
@@ -38,8 +37,14 @@ const App = () => {
   };
 
   const postScore = () => {
+    let score = useSelector((state) => state.boxes.board[16]);
+
     fetch('/scores', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(score),
     });
   };
 
