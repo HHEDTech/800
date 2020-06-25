@@ -7,13 +7,13 @@ const ScoresPanel = (props) => {
 
   return (
     <div className="scores">
-      <div className="user-highscore">
-        <h3>Your record:</h3>
-        <div>{highscore}</div>
-      </div>
       <div className="user-score">
         <h3>Your score:</h3>
-        <div>{score}</div>
+        <h1>{score}</h1>
+      </div>
+      <div className="user-highscore">
+        <h3>Your record:</h3>
+        <h1 className="score">{highscore}</h1>
       </div>
     </div>
   );

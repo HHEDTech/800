@@ -52,7 +52,7 @@ const Login = (props) => {
   return (
     <div className="login-title">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
           autoComplete="off"
@@ -69,7 +69,7 @@ const Login = (props) => {
           placeholder="Password"
           value={input.password}
         />
-        <input type="submit" value="Login" />
+        <input className="login-btn" type="submit" value="Login" />
       </form>
       No account?{' '}
       <button className="signup-redirect" onClick={(e) => loginSignupToggle(e)}>

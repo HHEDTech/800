@@ -69,6 +69,7 @@ const Board = () => {
         <ScoresPanel />
         <div className="board">{boxes}</div>
         <button
+          className="reset-btn"
           type="button"
           onClick={() => {
             resetGame();
