@@ -69,7 +69,7 @@ const boxesReducer = (state = initialState, action) => {
             for(let j = 0; j < 3; j++){
               // combine doubles
             // update score
-              if(columns[i][j] === columns[i][j + 1]){
+              if(newBoard[i + 4*j] === newBoard[i + 4*j + 4] && newBoard[i + 4*j] !== null){
                 let pos = i + 4*j;
                 newBoard[pos] += newBoard[pos + 4];
                 newBoard[pos + 4] = null;
@@ -103,7 +103,7 @@ const boxesReducer = (state = initialState, action) => {
             }
           });
           let loc = Math.floor(Math.random() * empty.length);
-          newBoard[loc] = 2 + 2 * Math.floor(Math.random() * 2);
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
            // if not legal check if L/R is legal
           // if not game over
@@ -139,17 +139,11 @@ const boxesReducer = (state = initialState, action) => {
       let game = false;
       let score = state.score;
       let newBoard = [...state.board];
-      console.log("after initializing newBoard: ", newBoard);
       let legal = false;
       let columns = [[], [], [], []];
       newBoard.forEach(x => {
         columns[x % 4].push(x);
       });
-      console.log("after loading columns: ")
-      console.log(columns[0])
-      console.log(columns[1])
-      console.log(columns[2])
-      console.log(columns[3])
       // check if move is legal
         // If doubles, legal
       for(let i = 0; i < 4; i++){
@@ -173,17 +167,14 @@ const boxesReducer = (state = initialState, action) => {
           }
         }
         if (legal) {
-          console.log("determined legal move")
-          console.log("newBoard is now: ", newBoard)
-        // if legal
+     
+       // if legal
           //check for doubles
           for(let i = 0; i < 4; i++){
             for(let j = 0; j < 3; j++){
               // combine doubles
             // update score
-              if(columns[i][j] === columns[i][j + 1]){
-                console.log("we should not be here in doubles reducer")
-                console.log("but if we are, newBoard is: ", newBoard)
+              if(newBoard[4*j + i] === newBoard[4*j + 4 + i] && newBoard[4*j + i] !== null){
                 let pos = i + 4*j;
                 newBoard[pos + 4] += newBoard[pos];
                 newBoard[pos] = null;
@@ -199,17 +190,13 @@ const boxesReducer = (state = initialState, action) => {
                   let pos = i + 4*j;
                   let np = pos;
                   if(newBoard[pos]){
-                    console.log("at position: ", pos)
-                    console.log("on board: ", newBoard)
                     while(np < 12 && (!newBoard[np + 4])){
                       np += 4;
                     }
                   }
                   if(np !== pos){
-                    console.log("if we're moving stuff, we are here:",  newBoard)
                     newBoard[np] = newBoard[pos];
                     newBoard[pos] = null;
-                    console.log("and end up here:",  newBoard)
                   }
               }
             }
@@ -221,8 +208,7 @@ const boxesReducer = (state = initialState, action) => {
             }
           });
           let loc = Math.floor(Math.random() * empty.length);
-          newBoard[loc] = 2 + 2 * Math.floor(Math.random() * 2);
-          console.log("added random: ", newBoard)
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
            // if not legal check if L/R is legal
           // if not game over
@@ -252,7 +238,6 @@ const boxesReducer = (state = initialState, action) => {
               }
             }
         }
-        console.log("returning to state: ", newBoard)
         return { ...state, board: newBoard, gameOver: game, score: score };
   } else if (action.payload === 'LEFT') {
       let game = false;
@@ -292,7 +277,7 @@ const boxesReducer = (state = initialState, action) => {
             for(let j = 0; j < 3; j++){
               // combine doubles
             // update score
-              if(rows[i][j] === rows[i][j + 1]){
+              if(newBoard[4*i + j] === newBoard[4 * i + j + 1] && newBoard[4*i + j] !== null){
                 let pos = 4*i + j;
                 newBoard[pos] += newBoard[pos + 1];
                 newBoard[pos + 1] = null;
@@ -326,7 +311,7 @@ const boxesReducer = (state = initialState, action) => {
             }
           });
           let loc = Math.floor(Math.random() * empty.length);
-          newBoard[loc] = 2 + 2 * Math.floor(Math.random() * 2);
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
            // if not legal check if up/down is legal
           // if not game over
@@ -395,7 +380,7 @@ const boxesReducer = (state = initialState, action) => {
             for(let j = 0; j < 3; j++){
               // combine doubles
             // update score
-              if(rows[i][j] === rows[i][j + 1]){
+              if(newBoard[4*i + j] === newBoard[4*i + j + 1] && newBoard[4*i + j] !== null){
                 let pos = 4*i + j;
                 newBoard[pos + 1] += newBoard[pos];
                 newBoard[pos] = null;
@@ -429,7 +414,7 @@ const boxesReducer = (state = initialState, action) => {
             }
           });
           let loc = Math.floor(Math.random() * empty.length);
-          newBoard[loc] = 2 + 2 * Math.floor(Math.random() * 2);
+          newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
         } else {
            // if not legal check if Up/Down is legal
           // if not game over
