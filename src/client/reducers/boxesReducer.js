@@ -1,4 +1,5 @@
 // import * as types from '../actions/actionTypes';
+import { useSelector } from 'react-redux';
 
 const initialState = {
   score: 0,
@@ -28,6 +29,18 @@ board = [0,  1,  2,  3,
          8, 9, 10, 11,
          12, 13, 14, 15]
 */
+
+const postScore = () => {
+  let score = useSelector((state) => state.boxes.score);
+
+  fetch('/scores', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(score),
+  });
+};
 
 const boxesReducer = (state = initialState, action) => {
   if (action.payload === 'UP') {

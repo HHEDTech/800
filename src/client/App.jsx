@@ -36,18 +36,6 @@ const App = () => {
       .catch((err) => console.log(err));
   };
 
-  const postScore = () => {
-    let score = useSelector((state) => state.boxes.board[16]);
-
-    fetch('/scores', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(score),
-    });
-  };
-
   useEffect(() => {
     const board = document.querySelector('.game-container');
     board.setAttribute('tabindex', 0);

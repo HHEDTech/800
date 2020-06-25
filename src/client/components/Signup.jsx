@@ -28,6 +28,11 @@ const Signup = (props) => {
     });
   };
 
+  const loginSignupToggle = (e) => {
+    dispatch(actions.setLoginModal(true));
+    dispatch(actions.setSignupModal(false));
+  };
+
   return (
     <div className="login-title">
       <h2>Signup</h2>
@@ -50,6 +55,10 @@ const Signup = (props) => {
         />
         <input type="submit" value="Submit" />
       </form>
+      Already have an account?{' '}
+      <button className="signup-redirect" onClick={loginSignupToggle}>
+        Login!
+      </button>
     </div>
   );
 };
