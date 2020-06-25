@@ -1,22 +1,37 @@
 import React from 'react';
 
 import useModal from '../common/useModal';
-import Modal from './Modal.jsx';
+import LoginModal from './LoginModal.jsx';
 
 export default function Nav() {
-  const { isShowing, toggle } = useModal();
+  const { isShowing: loginShowing, toggle: loginToggle } = useModal();
+  const { isShowing: signinShowing, toggle: signinToggle } = useModal();
   // Need to add login stuff
 
   return (
     <div className="nav">
-      <button
-        type="button"
-        className="button-default login-btn"
-        onClick={toggle}
-      >
-        LOGIN
-      </button>
-      <Modal isShowing={isShowing} hide={toggle} />
+      <div className="login-btn-container">
+        <button
+          type="button"
+          className="button-default login-btn"
+          onClick={loginToggle}
+        >
+          LOGIN
+        </button>
+        <button
+          type="button"
+          className="button-default signin-btn"
+          onClick={signinToggle}
+        >
+          SIGNIN
+        </button>
+      </div>
+      <LoginModal isShowing={loginShowing} hide={loginToggle} isLogin={true} />
+      <LoginModal
+        isShowing={signinShowing}
+        hide={signinToggle}
+        isLogin={false}
+      />
       <h1>800 HEX CHALLENGE OF DEATH</h1>
     </div>
   );
