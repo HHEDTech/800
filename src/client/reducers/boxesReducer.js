@@ -2,7 +2,6 @@
 
 const initialState = {
   score: 0,
-  leaderboard: [],
   board: new Array(16).fill(null),
 };
 
