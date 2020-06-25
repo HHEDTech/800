@@ -70,18 +70,6 @@ body {
           //grid-template-columns: 1fr 1fr 1fr 1fr;
           border: 1px solid black;
           box-shadow: 5px 5px 5px black;
-          .box {
-            background-color: white;
-            margin: 3px;
-            height: 22%;
-            width: 22%;
-            // border: 1px solid black;
-            border-radius: 0.1em;
-            font-size: 60px;
-            color: white;
-            text-align: center;
-            line-height: 100px;
-          }
         }
         .score {
           position: relative;
@@ -122,6 +110,18 @@ body {
       }
     }
   }
+}
+.box {
+  background-color: white;
+  margin: 3px;
+  height: 22%;
+  width: 22%;
+  // border: 1px solid black;
+  border-radius: 0.1em;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  line-height: 100px;
 }
 .color2 {
   background-color: $color2;
