@@ -6,6 +6,7 @@ const initialState = {
   // leaderboard: [],
   gameOver: false,
   board: new Array(16).fill(null),
+  newTiles: null,
 };
 
 // get loc of first
@@ -22,6 +23,7 @@ const bValue = 2 * Math.floor(Math.random() * 2) + 2;
 // assign
 initialState.board[a] = aValue;
 initialState.board[b] = bValue;
+initialState.newTiles = [a, b];
 
 /*
 board = [0,  1,  2,  3,
@@ -44,6 +46,7 @@ const postScore = () => {
 
 const boxesReducer = (state = initialState, action) => {
   if (action.payload === 'UP') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -141,6 +144,7 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
       let loc = Math.floor(Math.random() * empty.length);
+      newTiles = [empty[loc]];
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
     } else {
       newBoard = [...state.board];
@@ -174,8 +178,15 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'DOWN') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -273,6 +284,7 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
       let loc = Math.floor(Math.random() * empty.length);
+      newTiles = [empty[loc]];
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
     } else {
       newBoard = [...state.board];
@@ -306,8 +318,15 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'LEFT') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -405,6 +424,7 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
       let loc = Math.floor(Math.random() * empty.length);
+      newTiles = [empty[loc]];
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
     } else {
       newBoard = [...state.board];
@@ -438,8 +458,15 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else if (action.payload === 'RIGHT') {
+    let newTiles;
     let game = false;
     let score = state.score;
     let legal = false;
@@ -537,6 +564,7 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
       let loc = Math.floor(Math.random() * empty.length);
+      newTiles = [empty[loc]];
       newBoard[empty[loc]] = 2 + 2 * Math.floor(Math.random() * 2);
     } else {
       newBoard = [...state.board];
@@ -570,7 +598,13 @@ const boxesReducer = (state = initialState, action) => {
         }
       }
     }
-    return { ...state, board: newBoard, gameOver: game, score: score };
+    return {
+      ...state,
+      board: newBoard,
+      gameOver: game,
+      score: score,
+      newTiles,
+    };
   } else {
     return state;
   }

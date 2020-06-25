@@ -13,7 +13,6 @@ module.exports = {
     proxy: {
       '/scores': {
         target: 'http://localhost:3000',
-        pathRewrite: { '^/scores': '' },
       },
       '/leaderboard': {
         target: 'http://localhost:3000',

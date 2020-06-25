@@ -24,6 +24,17 @@ const Login = (props) => {
         password: input.password,
       }),
     }).then((res) => {
+      fetch('/scores', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('/scores response', res);
+          dispatch(actions.setHighScore(res.highscore));
+        });
       dispatch(actions.setLogin(input.username));
       dispatch(actions.setLoginModal(false));
     });

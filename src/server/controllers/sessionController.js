@@ -1,4 +1,3 @@
-const db = require('../db.js');
 const jwt = require('jsonwebtoken');
 
 const sessionController = {};
@@ -12,21 +11,6 @@ sessionController.createSession = (req, res, next) => {
     httpOnly: true,
   });
   return next();
-  // const query = `INSERT INTO sessions (username, token) VALUES ($1, $2) RETURNING *`;
-  // const values = [username, accessToken];
-  // db.query(query, values, (err, data) => {
-  //   if (err)
-  //     return next({
-  //       log: 'Error creating session in createSession',
-  //       message: { error: `Error from database: ${err}` },
-  //     });
-  //   res.locals.session = data.rows[0];
-  //   console.log(
-  //     'This is res.locals.session in createSession',
-  //     res.locals.session
-  //   );
-  //   return next();
-  // });
 };
 
 sessionController.verifySession = (req, res, next) => {
@@ -45,19 +29,6 @@ sessionController.verifySession = (req, res, next) => {
     res.locals.user = decoded;
     return next();
   });
-  // const query = `SELECT FROM sessions WHERE token = $1`;
-  // const values = [accessToken];
-  // db.query(query, values, (err, data) => {
-  //   if (err)
-  //     return next({
-  //       log: 'Error finding session in veryifySession',
-  //       message: { error: `Error from database: ${err}` },
-  //     });
-  //   else if (data.rows[0].token === accessToken) {
-  //     res.locals.verified = true;
-  //     return next();
-  //   }
-  // });
 };
 
 module.exports = sessionController;

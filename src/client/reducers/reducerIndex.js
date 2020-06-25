@@ -8,7 +8,7 @@ import modalReducer from './modalReducer';
 // combine reducers
 const reducers = combineReducers({
   boxes: boxesReducer,
-  username: loginReducer,
+  user: loginReducer,
   leaderboard: leaderboardReducer,
   modals: modalReducer,
 });

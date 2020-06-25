@@ -6,9 +6,6 @@ import Board from './components/Board.jsx';
 import Nav from './components/Nav.jsx';
 
 const App = () => {
-  const [press, setPressed] = useState(false);
-  const dispatch = useDispatch();
-
   const keys = {
     '37': 'LEFT',
     '65': 'LEFT',
@@ -19,6 +16,30 @@ const App = () => {
     '40': 'DOWN',
     '83': 'DOWN',
   };
+  // const [press, setPressed] = useState(false);
+  const gameOver = useSelector((state) => state.boxes.gameOver);
+  const username = useSelector((state) => state.user.username);
+  const score = useSelector((state) => state.boxes.score);
+  const dispatch = useDispatch();
+
+  if (gameOver) {
+    const board = document.querySelector('.game-container');
+    board.removeEventListener('keydown', keyDownHandle);
+    if (username) {
+      fetch('/scores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ score }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          dispatch(actions.setHighScore(res.highscore));
+          dispatch(actions.updateLeaderboard(res.leaderboard));
+        });
+    }
+  }
 
   const keyDownHandle = (e) => {
     if (!keys[e.keyCode]) return;
@@ -26,7 +47,6 @@ const App = () => {
     console.log(keys[e.keyCode]);
     dispatch(actions.move(keys[e.keyCode]));
   };
-
   const getHighScores = () => {
     fetch('/scores')
       .then((scores) => {

@@ -71,17 +71,23 @@ body {
           border: 1px solid black;
           box-shadow: 5px 5px 5px black;
         }
-        .score {
+        .scores {
           position: relative;
-          left: 13em;
+          left: 9em;
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           align-items: center;
           padding: 1em;
           width: auto;
           height: 5em;
           background-color: rgb(124, 124, 124);
           border-radius: 3px;
+          .user-score {
+            margin-left: 1em;
+          }
+          .user-highscore {
+            margin-left: 1em;
+          }
         }
       }
       .leaderboard-container {
@@ -125,6 +131,17 @@ body {
   color: white;
   text-align: center;
   line-height: 100px;
+}
+.fade {
+  animation: fade 0.5s 1;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .color2 {
   background-color: $color2;

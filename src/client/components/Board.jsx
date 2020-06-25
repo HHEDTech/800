@@ -9,9 +9,12 @@ const Board = () => {
     console.log('State', state);
     return state.boxes.board;
   });
+  const newTiles = useSelector((state) => state.boxes.newTiles);
+  const resetGame = () => {};
   console.log('boardArr -> ', boardArr);
   const boxes = boardArr.map((number, idx) => {
     let color;
+    let fade = false;
     switch (number) {
       case null:
         break;
@@ -51,7 +54,8 @@ const Board = () => {
       default:
         color = 'black';
     }
-    return <Box key={`box-${idx}`} number={number} color={color} />;
+    if (newTiles && newTiles.some((val) => val === idx)) fade = true;
+    return <Box key={`box-${idx}`} number={number} color={color} fade={fade} />;
   });
 
   return (
@@ -59,6 +63,14 @@ const Board = () => {
       <div className="game-container">
         <ScoresPanel />
         <div className="board">{boxes}</div>
+        <button
+          type="button"
+          onClick={() => {
+            resetGame;
+          }}
+        >
+          Reset Game
+        </button>
       </div>
       <Leaderboard />
     </div>
