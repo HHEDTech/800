@@ -5,9 +5,6 @@ import actions from './actions/actions';
 import './Modal.css';
 import Board from './components/Board.jsx';
 import Nav from './components/Nav.jsx';
-import Modal from './components/Modal.jsx';
-import ScoresPanel from './components/ScoresPanel.jsx';
-import useModal from './common/useModal';
 
 const App = () => {
   const [press, setPressed] = useState(false);
@@ -33,7 +30,10 @@ const App = () => {
 
   const getHighScores = () => {
     fetch('/scores')
-      .then((scores) => console.log('scores: ', scores))
+      .then((scores) => {
+        console.log('scores: ', scores);
+        dispatch(actions.UPDATE_LEADERBOARD);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -49,12 +49,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="app">
       <Nav />
-      <div className="game-container">
-        <ScoresPanel />
-        <Board />
-      </div>
+      <Board />
     </div>
   );
 };

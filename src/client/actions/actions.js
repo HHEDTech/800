@@ -11,12 +11,19 @@
 import * as types from './actionTypes';
 
 const actions = {};
-// export const MOVE = 'MOVE'
-// export const UPDATE_SCORE = 'UPDATE_SCORE';
-// export const LOGIN = 'LOGIN';
+
 actions.move = (direction) => ({
   type: types.MOVE,
   payload: direction,
 });
 
+actions.updateLeaderboard = (scoresArray) => ({
+  type: types.UPDATE_LEADERBOARD,
+  payload: scoresArray,
+});
+
+actions.setLogin = (username) => ({
+  type: types.LOGIN,
+  payload: username,
+});
 export default actions;
