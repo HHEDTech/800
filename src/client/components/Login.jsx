@@ -24,15 +24,35 @@ const Login = (props) => {
         password: input.password,
       }),
     }).then((res) => {
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ username: input.username })
+      );
+      fetch('/scores', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('/scores response', res);
+          dispatch(actions.setHighScore(res.highscore));
+        });
       dispatch(actions.setLogin(input.username));
       dispatch(actions.setLoginModal(false));
     });
   };
 
+  const loginSignupToggle = (e) => {
+    dispatch(actions.setLoginModal(false));
+    dispatch(actions.setSignupModal(true));
+  };
+
   return (
     <div className="login-title">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
           autoComplete="off"
@@ -49,9 +69,12 @@ const Login = (props) => {
           placeholder="Password"
           value={input.password}
         />
-        <input type="submit" value="Submit" />
+        <input className="login-btn" type="submit" value="Login" />
       </form>
-      No account? <button className="signup-redirect"></button>
+      No account?{' '}
+      <button className="signup-redirect" onClick={(e) => loginSignupToggle(e)}>
+        Signup!
+      </button>
     </div>
   );
 };

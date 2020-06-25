@@ -38,13 +38,25 @@ app.post(
   '/scores',
   sessionController.verifySession,
   scoreController.addScore,
+  scoreController.getUserScores,
+  scoreController.getLeaderboard,
   (req, res) => {
-    return res.status(200).send('Score added');
+    return res
+      .status(200)
+      .json({
+        highscore: res.locals.userHighScore,
+        leaderboard: res.locals.leaderboard,
+      });
   }
 );
-app.get('/scores', scoreController.getUserScores, (req, res) => {
-  return res.status(200).json({ userScores: res.locals.userScores });
-});
+app.get(
+  '/scores',
+  sessionController.verifySession,
+  scoreController.getUserScores,
+  (req, res) => {
+    return res.status(200).json({ highscore: res.locals.userHighScore });
+  }
+);
 app.get('/leaderboard', scoreController.getLeaderboard, (req, res) => {
   return res.status(200).json(res.locals.leaderboard);
 });

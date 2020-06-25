@@ -14,14 +14,14 @@ export default function Nav() {
       <div className="login-btn-container">
         <button
           type="button"
-          className="button-default login-btn"
+          className="login-btn"
           onClick={() => dispatch(actions.setLoginModal(!loginStatus))}
         >
           LOGIN
         </button>
         <button
           type="button"
-          className="button-default signin-btn"
+          className="signin-btn"
           onClick={() => dispatch(actions.setSignupModal(!signupStatus))}
         >
           SIGNUP

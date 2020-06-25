@@ -55,14 +55,23 @@ userController.verifyUser = (req, res, next) => {
         message: { error: `Error from DB: ${err}` },
       });
     }
-    const { password: hashPW } = data.rows[0];
-    // Compare db password to entered password
-    bcrypt.compare(password, hashPW, (err, result) => {
-      if (result) {
-        res.locals.user = { username };
-        return next();
-      } else return res.redirect('/signup');
-    });
+    try {
+      console.log(data.rows);
+      const { password: hashPW } = data.rows[0];
+      // Compare db password to entered password
+      bcrypt.compare(password, hashPW, (err, result) => {
+        if (result) {
+          console.log('password correct');
+          res.locals.user = { username };
+          return next();
+        } else return res.redirect('/signup');
+      });
+    } catch {
+      return next({
+        log: 'Error verifying user in DB',
+        message: { error: `No data returned from db` },
+      });
+    }
   });
 };
 
