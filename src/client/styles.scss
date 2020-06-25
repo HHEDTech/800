@@ -19,7 +19,8 @@ body {
   color: white;
   .nav {
     background-color: #333;
-    height: 5em;
+    z-index: 2;
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +45,8 @@ body {
   display: flex;
   padding: 0;
   margin: 0;
+  align-items: center;
+  height: 90%;
 }
 .game-container {
   padding: 0 2.5%;
@@ -56,6 +59,20 @@ body {
 }
 .leaderboard-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lighten(#333, 30%);
+  height: 100vh;
+  margin-right: 2em;
+  .leader {
+    background-color: lighten(#333, 10%);
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+    border: 1px solid white;
+    width: 100%;
+  }
 }
 .board {
   background-color: rgb(124, 124, 124);

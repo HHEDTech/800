@@ -22,7 +22,7 @@ export default function Nav() {
           className="button-default signin-btn"
           onClick={signinToggle}
         >
-          SIGNIN
+          SIGNUP
         </button>
       </div>
       <LoginModal isShowing={loginShowing} hide={loginToggle} isLogin={true} />
