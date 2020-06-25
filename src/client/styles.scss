@@ -104,13 +104,20 @@ body {
         background-color: lighten(#333, 30%);
         height: 90vh;
         margin-right: 2em;
+        h1 {
+          margin: 1em;
+        }
         .leader {
           background-color: lighten(#333, 10%);
           display: flex;
-          justify-content: space-around;
-          padding: 1em;
+          justify-content: space-between;
+          padding: 0.5em;
           border: 1px solid white;
-          width: 100%;
+          width: 90%;
+          height: 2em;
+          h1 {
+            margin: 0;
+          }
         }
       }
     }
