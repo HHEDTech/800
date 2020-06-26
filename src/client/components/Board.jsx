@@ -19,7 +19,6 @@ const Board = () => {
   const boxes = boardArr.map((number, idx) => {
     let color;
     let fade = false;
-    console.log('Here is the number', number);
     switch (number) {
       case null:
         break;

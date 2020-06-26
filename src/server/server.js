@@ -41,12 +41,10 @@ app.post(
   scoreController.getUserScores,
   scoreController.getLeaderboard,
   (req, res) => {
-    return res
-      .status(200)
-      .json({
-        highscore: res.locals.userHighScore,
-        leaderboard: res.locals.leaderboard,
-      });
+    return res.status(200).json({
+      highscore: res.locals.userHighScore,
+      leaderboard: res.locals.leaderboard,
+    });
   }
 );
 app.get(
@@ -54,7 +52,12 @@ app.get(
   sessionController.verifySession,
   scoreController.getUserScores,
   (req, res) => {
-    return res.status(200).json({ highscore: res.locals.userHighScore });
+    return res
+      .status(200)
+      .json({
+        highscore: res.locals.userHighScore,
+        username: res.locals.user.username,
+      });
   }
 );
 app.get('/leaderboard', scoreController.getLeaderboard, (req, res) => {
