@@ -7,7 +7,12 @@ import LoginModal from './LoginModal.jsx';
 export default function Nav() {
   const loginStatus = useSelector((state) => state.modals.loginModal);
   const signupStatus = useSelector((state) => state.modals.signupModal);
+  const activeUser = useSelector((state) => state.user.username);
   const dispatch = useDispatch();
+
+  let welcome;
+  if (activeUser) welcome = `Welcome, ${activeUser}`;
+  else welcome = 'Welcome!';
 
   return (
     <div className="nav">
@@ -37,7 +42,8 @@ export default function Nav() {
         hide={() => dispatch(actions.setSignupModal(!signupStatus))}
         isLogin={false}
       />
-      <h1>800 HEX CHALLENGE OF DEATH</h1>
+      <h1>800 Hex</h1>
+      <h1>{welcome}!</h1>
     </div>
   );
 }

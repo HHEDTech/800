@@ -41,34 +41,40 @@ const App = () => {
     }
   }
   const activeUser = JSON.parse(localStorage.getItem('user'));
-  if (activeUser) {
-    fetch('/scores', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('/scores response', res);
-        dispatch(actions.setHighScore(res.highscore));
-      });
-    dispatch(actions.setLogin(activeUser.username));
-  }
+  console.log('activeUser', activeUser);
+  useEffect(() => {
+    if (activeUser) {
+      fetch('/scores', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('/scores response', res);
+          if (!res.error) {
+            dispatch(actions.setHighScore(res.highscore));
+            dispatch(actions.setLogin(res.username));
+          }
+        });
+    }
+  }, []);
+
   const keyDownHandle = (e) => {
     if (!keys[e.keyCode]) return;
     e.preventDefault();
     console.log(keys[e.keyCode]);
     dispatch(actions.move(keys[e.keyCode]));
   };
-  const getHighScores = () => {
-    fetch('/scores')
-      .then((scores) => {
-        console.log('scores: ', scores);
-        dispatch(actions.UPDATE_LEADERBOARD);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getHighScores = () => {
+  //   fetch('/scores')
+  //     .then((scores) => {
+  //       console.log('scores: ', scores);
+  //       dispatch(actions.UPDATE_LEADERBOARD);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   useEffect(() => {
     const board = document.querySelector('.game-container');

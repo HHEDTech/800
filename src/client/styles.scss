@@ -26,18 +26,31 @@ body {
       background-color: #333;
       height: 10vh;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      padding: 0 1em;
       .login-btn-container {
         display: flex;
         height: 5em;
-        position: absolute;
-        left: 10%;
         justify-content: center;
       }
+      .login-btn {
+        background-color: darken($color100, 5%);
+        color: darken(white, 15%);
+        transition: all 0.2s ease;
+        &:hover {
+          background-color: $color100;
+          color: white;
+        }
+      }
       .signin-btn {
-        background-color: white;
-        color: $darkFontColor;
+        background-color: darken(white, 5%);
+        color: lighten($darkFontColor, 10%);
+        transition: all 0.2s ease;
+        &:hover {
+          background-color: white;
+          color: $darkFontColor;
+        }
       }
       .button-default {
         margin: 0.2em;
@@ -66,19 +79,17 @@ body {
           top: 50px;
           width: 550px;
           height: 50%;
-          padding: 5px 5px;
+          padding: 1em;
           //grid-template-columns: 1fr 1fr 1fr 1fr;
           border: 1px solid black;
           box-shadow: 5px 5px 5px black;
         }
         .scores {
-          position: relative;
-          left: 9em;
           display: flex;
           flex-direction: row;
           align-items: center;
           padding: 1em;
-          width: auto;
+          width: 550px;
           height: 5em;
           background-color: rgb(124, 124, 124);
           border-radius: 3px;
@@ -133,10 +144,21 @@ body {
   .login-form {
     display: flex;
     flex-direction: column;
-    .login-btn {
+    align-items: center;
+    input {
       margin: 0.5em;
       height: 2em;
     }
+    .login-btn {
+      margin: 0.5em;
+      height: 2em;
+      margin-bottom: 1em;
+      width: 6em;
+      font-weight: 700;
+    }
+  }
+  button {
+    margin: 0.5em;
   }
 }
 .box {

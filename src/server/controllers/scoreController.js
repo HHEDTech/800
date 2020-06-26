@@ -20,6 +20,7 @@ scoreController.addScore = (req, res, next) => {
 scoreController.getUserScores = (req, res, next) => {
   console.log('Entering getUserScores');
   const { username } = res.locals.user;
+  console.log(username);
   const query = `SELECT * FROM scores WHERE username = ($1) ORDER BY score DESC`;
   const values = [username];
   db.query(query, values, (err, data) => {
@@ -28,8 +29,9 @@ scoreController.getUserScores = (req, res, next) => {
         log: 'Error finding high scores in getHighScores',
         message: { error: `Error from database: ${err}` },
       });
-    console.log('highscore', data.rows[0].score);
-    res.locals.userHighScore = data.rows[0].score;
+    console.log('highscore', data.rows);
+    if (data.rows.length > 0) res.locals.userHighScore = data.rows[0].score;
+    else res.locals.userHighScore = 0;
     return next();
   });
 };
