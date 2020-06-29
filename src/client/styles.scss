@@ -18,15 +18,21 @@ body {
   color: white;
   .nav {
     background-color: #333;
+    height: 5em;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     .login-btn {
+      height: 5em;
       position: absolute;
-      left: 0;
+      left: 20%;
     }
   }
 }
-
+.main-container {
+  padding: 0;
+  margin: 0;
+}
 .game-container {
   padding: 0 2.5%;
   display: flex;
@@ -41,15 +47,22 @@ body {
   flex-wrap: wrap;
   justify-content: space-evenly;
   top: 50px;
-  width: 50%;
-  max-width: 550px;
+  width: 550px;
   height: 50%;
   padding: 5px 5px;
   //grid-template-columns: 1fr 1fr 1fr 1fr;
   border: 1px solid black;
   box-shadow: 5px 5px 5px black;
 }
-.scores {
+.score {
+  position: relative;
+  left: 13em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  width: auto;
+  height: 5em;
   background-color: rgb(124, 124, 124);
   border-radius: 3px;
 }

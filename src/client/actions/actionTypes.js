@@ -11,6 +11,7 @@
 export const MOVE = 'MOVE';
 export const UPDATE_SCORE = 'UPDATE_SCORE';
 export const RESET_SCORE = 'RESET_SCORE';
+export const UPDATE_LEADERBOARD = 'UPDATE_LEADERBOARD';
 export const LOGIN = 'LOGIN';
 export const OPEN_LOGIN = 'OPEN_LOGIN';
 export const CLOSE_LOGIN = 'CLOSE_LOGIN';
