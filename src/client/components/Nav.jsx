@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import actions from '../actions/actions';
-import LoginModal from './LoginModal.jsx';
+import actions from "../actions/actions";
+import LoginModal from "./LoginModal.jsx";
 
 export default function Nav() {
   const loginStatus = useSelector((state) => state.modals.loginModal);
@@ -12,10 +12,22 @@ export default function Nav() {
 
   let welcome;
   if (activeUser) welcome = `Welcome, ${activeUser}`;
-  else welcome = 'Welcome!';
+  else welcome = "Welcome!";
 
   return (
     <div className="nav">
+      <LoginModal
+        isShowing={loginStatus}
+        hide={() => dispatch(actions.setLoginModal(!loginStatus))}
+        isLogin={true}
+      />
+      <LoginModal
+        isShowing={signupStatus}
+        hide={() => dispatch(actions.setSignupModal(!signupStatus))}
+        isLogin={false}
+      />
+      <h1>{welcome}!</h1>
+      <h1>800 Hex</h1>
       <div className="login-btn-container">
         <button
           type="button"
@@ -32,18 +44,6 @@ export default function Nav() {
           SIGNUP
         </button>
       </div>
-      <LoginModal
-        isShowing={loginStatus}
-        hide={() => dispatch(actions.setLoginModal(!loginStatus))}
-        isLogin={true}
-      />
-      <LoginModal
-        isShowing={signupStatus}
-        hide={() => dispatch(actions.setSignupModal(!signupStatus))}
-        isLogin={false}
-      />
-      <h1>800 Hex</h1>
-      <h1>{welcome}!</h1>
     </div>
   );
 }
