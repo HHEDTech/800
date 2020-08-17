@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import actions from './actions/actions';
-import Board from './components/Board.jsx';
-import Nav from './components/Nav.jsx';
+import actions from "./actions/actions";
+import Board from "./components/Board.jsx";
+import Nav from "./components/Nav.jsx";
 
 const App = () => {
   const keys = {
-    '37': 'LEFT',
-    '65': 'LEFT',
-    '38': 'UP',
-    '87': 'UP',
-    '39': 'RIGHT',
-    '68': 'RIGHT',
-    '40': 'DOWN',
-    '83': 'DOWN',
+    "37": "LEFT",
+    "65": "LEFT",
+    "38": "UP",
+    "87": "UP",
+    "39": "RIGHT",
+    "68": "RIGHT",
+    "40": "DOWN",
+    "83": "DOWN",
   };
   // const [press, setPressed] = useState(false);
   const gameOver = useSelector((state) => state.boxes.gameOver);
@@ -23,13 +23,13 @@ const App = () => {
   const dispatch = useDispatch();
 
   if (gameOver) {
-    const board = document.querySelector('.game-container');
-    board.removeEventListener('keydown', keyDownHandle);
+    const board = document.querySelector(".game-container");
+    board.removeEventListener("keydown", keyDownHandle);
     if (username) {
-      fetch('/scores', {
-        method: 'POST',
+      fetch("/scores", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ score }),
       })
@@ -38,21 +38,22 @@ const App = () => {
           dispatch(actions.setHighScore(res.highscore));
           dispatch(actions.updateLeaderboard(res.leaderboard));
         });
+      !gameOver;
     }
   }
-  const activeUser = JSON.parse(localStorage.getItem('user'));
-  console.log('activeUser', activeUser);
+  const activeUser = JSON.parse(localStorage.getItem("user"));
+  console.log("activeUser", activeUser);
   useEffect(() => {
     if (activeUser) {
-      fetch('/scores', {
-        method: 'GET',
+      fetch("/scores", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('/scores response', res);
+          console.log("/scores response", res);
           if (!res.error) {
             dispatch(actions.setHighScore(res.highscore));
             dispatch(actions.setLogin(res.username));
@@ -77,9 +78,9 @@ const App = () => {
   // };
 
   useEffect(() => {
-    const board = document.querySelector('.game-container');
-    board.setAttribute('tabindex', 0);
-    board.addEventListener('keydown', keyDownHandle, true);
+    const board = document.querySelector(".game-container");
+    board.setAttribute("tabindex", 0);
+    board.addEventListener("keydown", keyDownHandle, true);
   }, []);
 
   return (
