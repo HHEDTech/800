@@ -37,7 +37,6 @@ userController.createUser = (req, res, next) => {
 };
 
 userController.verifyUser = (req, res, next) => {
-  console.log('Entering verify user');
   const { username, password } = req.body;
   if (!username.length || !password.length) {
     return next({
@@ -56,12 +55,10 @@ userController.verifyUser = (req, res, next) => {
       });
     }
     try {
-      console.log(data.rows);
       const { password: hashPW } = data.rows[0];
       // Compare db password to entered password
       bcrypt.compare(password, hashPW, (err, result) => {
         if (result) {
-          console.log('password correct');
           res.locals.user = { username };
           return next();
         } else return res.redirect('/signup');

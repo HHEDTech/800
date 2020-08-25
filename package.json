@@ -6,7 +6,8 @@
   "scripts": {
     "start": "set \"NODE_ENV=production\" && nodemon src/server/server.js",
     "build": "set \"NODE_ENV=production\" && \"webpack\"",
-    "dev": "set \"NODE_ENV=development\" && concurrently \"webpack-dev-server --open --hot\" \"nodemon src/server/server.js\""
+    "dev": "set \"NODE_ENV=development\" && concurrently \"webpack-dev-server --open --hot\" \"nodemon src/server/server.js\"",
+    "deploy": "npm run build && scp -r ./build/* root@157.245.135.248:/var/www/800hex.com/html"
   },
   "repository": {
     "type": "git",

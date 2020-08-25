@@ -11,11 +11,9 @@ function Leaderboard() {
     fetch('/leaderboard', { METHOD: 'GET' })
       .then((res) => res.json())
       .then((res) => {
-        // console.log('Leaderboard data from server: ', res);
         dispatch(actions.updateLeaderboard(res));
       });
   }, []);
-  // console.log('Leaderboard outside of useEffect', leaderboard);
   const leaders = leaderboard.map((leader, idx) => (
     <div className="leader" key={`leader-${idx}`}>
       <h1 className="leader-name">{leader.username}</h1> {'  '}

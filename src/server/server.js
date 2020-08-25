@@ -22,7 +22,6 @@ app.post(
   userController.createUser,
   sessionController.createSession,
   (req, res) => {
-    console.log('At end of POST signup');
     return res.status(200).redirect('/');
   }
 );
@@ -69,7 +68,6 @@ if (process.env.NODE_env === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../../build')));
 
   app.get('/', (req, res) => {
-    // console.log(req)
     return res
       .status(200)
       .sendFile(path.resolve(__dirname, '../../index.html'));
@@ -91,7 +89,6 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

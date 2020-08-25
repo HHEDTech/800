@@ -13,7 +13,6 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('e.target', e.target);
     fetch('/login', {
       method: 'POST',
       headers: {
@@ -36,7 +35,6 @@ const Login = (props) => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('/scores response', res);
           dispatch(actions.setHighScore(res.highscore));
         });
       dispatch(actions.setLogin(input.username));

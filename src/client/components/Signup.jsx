@@ -13,7 +13,6 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('e.target', e.target);
     fetch('/signup', {
       method: 'POST',
       headers: {

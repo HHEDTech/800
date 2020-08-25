@@ -42,7 +42,6 @@ const App = () => {
     }
   }
   const activeUser = JSON.parse(localStorage.getItem("user"));
-  console.log("activeUser", activeUser);
   useEffect(() => {
     if (activeUser) {
       fetch("/scores", {
@@ -53,7 +52,6 @@ const App = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log("/scores response", res);
           if (!res.error) {
             dispatch(actions.setHighScore(res.highscore));
             dispatch(actions.setLogin(res.username));
@@ -65,7 +63,6 @@ const App = () => {
   const keyDownHandle = (e) => {
     if (!keys[e.keyCode]) return;
     e.preventDefault();
-    console.log(keys[e.keyCode]);
     dispatch(actions.move(keys[e.keyCode]));
   };
   // const getHighScores = () => {
