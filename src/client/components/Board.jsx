@@ -8,14 +8,12 @@ import actions from '../actions/actions';
 const Board = () => {
   const dispatch = useDispatch();
   const boardArr = useSelector((state) => {
-    console.log('State', state);
     return state.boxes.board;
   });
   const newTiles = useSelector((state) => state.boxes.newTiles);
   const resetGame = () => {
     dispatch(actions.resetBoard());
   };
-  console.log('boardArr -> ', boardArr);
   const boxes = boardArr.map((number, idx) => {
     let color;
     let fade = false;

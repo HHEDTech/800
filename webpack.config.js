@@ -12,19 +12,19 @@ module.exports = {
     publicPath: '/build/',
     proxy: {
       '/scores': {
-        target: 'http://localhost:3000',
+        target: 'http://800hex.com',
       },
       '/leaderboard': {
-        target: 'http://localhost:3000',
+        target: 'http://800hex.com',
       },
       '/users': {
-        target: 'http://localhost:3000',
+        target: 'http://800hex.com',
       },
       '/login': {
-        target: 'http://localhost:3000',
+        target: 'http://800hex.com',
       },
       '/signup': {
-        target: 'http://localhost:3000',
+        target: 'http://800hex.com',
       },
     },
   },

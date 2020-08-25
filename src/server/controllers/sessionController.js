@@ -14,19 +14,16 @@ sessionController.createSession = (req, res, next) => {
 };
 
 sessionController.verifySession = (req, res, next) => {
-  console.log('Entering verifySession, here are cookies: ', req.cookies);
   const { accessToken } = req.cookies;
   if (accessToken) {
     jwt.verify(accessToken, TOKEN_SECRET, (err, decoded) => {
       if (err) {
-        console.log('Error in verifySession', err);
         return next({
           log: 'Error checking session validity in verifySession',
           message: { error: `Error in verifySession: ${err}` },
         });
       }
       // Decoded should contain the userId that it was signed with
-      console.log('decoded->', decoded);
       res.locals.user = decoded;
       return next();
     });
